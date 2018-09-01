@@ -1,0 +1,61 @@
+{
+  "identificadores": [
+    {
+    "designacao":""
+    ,"areaGeografica":""
+    ,"emissor":""
+    ,"dataEmissao":""
+    ,"tipoDocumento":"certidoes"
+    ,"nomeCartorio":""
+    ,"livro":0
+    ,"folha":0
+    ,"termo":0
+    }
+    ,{
+    "designacao":""
+    ,"areaGeografica":""
+    ,"emissor":""
+    ,"dataEmissao":""
+    ,"tipoDocumento":"carteiraTrabalho"
+    ,"serier":0
+    ,"estado":""
+    }
+    ,{
+    "designacao":""
+    ,"areaGeografica":""
+    ,"emissor":""
+    ,"dataEmissao":""
+    ,"tipoDocumento":"tituloDeEleitor"
+    ,"secao":0
+    ,"zona":0
+    }
+  ]
+  ,"nomes":[
+    {
+      "titulo":[] 
+      ,"nome":[] 
+      ,"sobrenome":[] 
+      ,"sufixo":[] 
+    }
+  ]
+  ,"dadosDemograficos":{
+    "nomeMae":""
+    ,"nomePai":""
+    ,"situacaoFamiliar":""
+    ,"dataNascimento":{
+      "data":""
+      ,"acuraciaDia":"A"
+      ,"acuraciaMes":"E"
+      ,"acuraciaAno":"U"
+      ,"segmento": false
+    },"dataObito":{
+      "data":""
+      ,"acuraciaDia":"A"
+      ,"acuraciaMes":"E"
+      ,"acuraciaAno":"U"
+      ,"fonteNotificacao": 1
+    }
+    ,"sexo":"M"
+    ,"RacaCor":"U"
+  }
+}
