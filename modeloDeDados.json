@@ -66,4 +66,35 @@
     ,"ordemDeNascimento":0
     ,"comentario":""
   }
+  ,"enderecos":[
+    {
+      "linhaEndereco":{
+        "tipoSubUnidadeComplexo":"APT"
+        ,"numeroSubunidade":7
+        ,"nomeEdificio":"Edificio Goiania Mais"
+        ,"numeroAndar":3
+        ,"tipoAndar":"TERREO"
+        ,"complemento":""
+        ,"numeroPropriedade":""
+        ,"numeroSecaoDoLote":""
+        ,"nomeLogradouro":""
+        ,"codigoTipoLogradouro":""
+        ,"codigoSufixoLogradouro":"N(Norte)"
+        ,"setorCensitario":""
+      }
+      ,"bairro":"SETOR CENTRAL"
+      ,"municipio":"GOIANIA"
+      ,"codigoMunicipio":1
+      ,"estado":"GO"
+      ,"codigoPostal":""
+      ,"caixaPostal":""
+      ,"identificadorPais":1
+      ,"tipoEndereco":1
+      ,"dataInicial":""
+      ,"indicadorAcuraciaDataInicial":"AAA"
+      ,"dataFinal":""
+      ,"indicadorAcuraciaDataFinal":"AAA"
+    }
+  ]
+  
 }
