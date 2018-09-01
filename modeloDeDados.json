@@ -17,7 +17,7 @@
     ,"emissor":""
     ,"dataEmissao":""
     ,"tipoDocumento":"carteiraTrabalho"
-    ,"serier":0
+    ,"serie":0
     ,"estado":""
     }
     ,{
@@ -56,6 +56,14 @@
       ,"fonteNotificacao": 1
     }
     ,"sexo":"M"
-    ,"RacaCor":"U"
+    ,"RacaCor":3
+    ,"nacionalidade":1
+    ,"municipioDeNascimento":0
+    ,"estadoDeNascimento":0
+    ,"paisDeNascimento":0
+    ,"dataEntradaPais":""
+    ,"pluralidadeDeNacimento":0
+    ,"ordemDeNascimento":0
+    ,"comentario":""
   }
 }
