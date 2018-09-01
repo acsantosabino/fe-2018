@@ -1,5 +1,4 @@
-# fe-2018
-<h1>Fundamentos de Programação Front-End</h1>
+# fe-2018 - Fundamentos de Programação Front-End
 
 <h2>Membros do grupo</h2>
 
