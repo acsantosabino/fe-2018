@@ -28,6 +28,7 @@ Na modelagem do JSON faltou:
 * Representação: se for um nome japonês, você precisa escrever com o alfabeto disponível
 * Uso: representa o contexto de uso do nome
 * Indicador: indica uma situação peculiar referente ao uso do nome
+
 ***Tamanho:*** X
 
 ### Dados demográficos adicionais
