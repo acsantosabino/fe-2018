@@ -37,7 +37,9 @@ A parte dos dados demográficos tem bastante informações a ser inseridas e os 
 ***Tamanho:*** X
 
 ### Endereço do indivíduo
+Há muita informação a ser inserida e os códigos do modelo de referência devem ser seguidos na implementação
 
+***Tamanho:*** X
 
 ### Comunicações eletrônicas do indivíduo
 
