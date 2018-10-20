@@ -53,4 +53,5 @@ Há pouca informação a ser cadastrada e sem grande complexidade
 
 
 **Referências**
-* https://pt.stackoverflow.com/questions/76640/existe-alguma-api-que-liste-estados-e-cidades
+* [Api lista cidades](https://pt.stackoverflow.com/questions/76640/existe-alguma-api-que-liste-estados-e-cidades)
+* [React-Bootstrap](https://react-bootstrap.github.io/getting-started/introduction)
