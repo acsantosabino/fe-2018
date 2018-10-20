@@ -2,10 +2,10 @@
 
 ## Membros do grupo
 
-* Danillo Guimarães
+* Danillo Guimarães - *Identificador do indivíduo*
 * Artur Santos - *Comunicações eletrônicas do indivíduo + Vínculo do indivíduo + Suporte*
-* Márcio Henrique Morales
-* Diego Barbosa
+* Márcio Henrique Morales - *Endereço do indivíduo*
+* Diego Barbosa - *Dados demográficos adicionais*
 * Daniel Leonardo: *Nome do indivíduo*
 
 ## Áreas de desenvolvimento 
