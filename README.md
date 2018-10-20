@@ -32,7 +32,7 @@ Na modelagem do JSON faltou:
 ***Tamanho:*** X
 
 ### Dados demográficos adicionais
-A parte dos dados demográficos tem bastante informações a ser inseridas e deve tomar cuidado com os códigos já definidos no modelo de referência
+A parte dos dados demográficos tem bastante informações a ser inseridas e os códigos do modelo de referência devem ser seguidos na implementação
 
 ***Tamanho:*** X
 
