@@ -55,3 +55,12 @@ Há pouca informação a ser cadastrada e sem grande complexidade
 **Referências**
 * [Api lista cidades](https://pt.stackoverflow.com/questions/76640/existe-alguma-api-que-liste-estados-e-cidades)
 * [React-Bootstrap](https://react-bootstrap.github.io/getting-started/introduction)
+
+**Instalação**
+``` bash
+1. npm install // Instala dependencias
+##Executar passo 2 OU 3
+1. npm run start // Realiza o build no modo debug (não realiza minificação do arquivo javascript)
+1. npm run build // Realiza o build no modo produção (realiza minificação do arquivo javascript)
+
+```
