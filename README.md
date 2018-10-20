@@ -29,12 +29,12 @@ Na modelagem do JSON faltou:
 * Uso: representa o contexto de uso do nome
 * Indicador: indica uma situação peculiar referente ao uso do nome
 
-***Tamanho:*** X
+***Tamanho:*** 10
 
 ### Dados demográficos adicionais
 A parte dos dados demográficos tem bastante informações a ser inseridas e os códigos do modelo de referência devem ser seguidos na implementação
 
-***Tamanho:*** X
+***Tamanho:*** 9
 
 ### Endereço do indivíduo
 Há muita informação a ser inserida e os códigos do modelo de referência devem ser seguidos na implementação
