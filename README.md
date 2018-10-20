@@ -42,6 +42,10 @@ Há muita informação a ser inserida e os códigos do modelo de referência dev
 ***Tamanho:*** X
 
 ### Comunicações eletrônicas do indivíduo
+Há pouca informação a ser cadastrada e sem grande complexidade
 
+***Tamanho:*** X
 
 ### Vínculo do indivíduo
+
+***Tamanho:*** X
