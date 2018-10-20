@@ -23,6 +23,13 @@ No arquivo JSON não está definido quando o paciente nâo tem documento de iden
 ***Tamanho:*** X
 
 ### Nome do indivíduo
+Na modelagem do JSON faltou:
+* Preferido: se o nome é preferido ou não
+* Representação: se for um nome japonês, você precisa escrever com o alfabeto disponível
+* Uso: representa o contexto de uso do nome
+* Indicador: indica uma situação peculiar referente ao uso do nome
+***Tamanho:*** X
+
 ### Dados demográficos adicionais
 ### Endereço do indivíduo
 ### Comunicações eletrônicas do indivíduo
