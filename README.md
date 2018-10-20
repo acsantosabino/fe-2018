@@ -3,10 +3,10 @@
 ## Membros do grupo
 
 * Danillo Guimarães
-* Artur Santos
-* Márcio Henrique Morais
+* Artur Santos - *Comunicações eletrônicas do indivíduo + Vínculo do indivíduo + Suporte*
+* Márcio Henrique Morales
 * Diego Barbosa
-* Daniel Leonardo
+* Daniel Leonardo: *Nome do indivíduo*
 
 ## Áreas de desenvolvimento 
 
