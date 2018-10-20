@@ -32,6 +32,14 @@ Na modelagem do JSON faltou:
 ***Tamanho:*** X
 
 ### Dados demográficos adicionais
+A parte dos dados demográficos tem bastante informações a ser inseridas e deve tomar cuidado com os códigos já definidos no modelo de referência
+
+***Tamanho:*** X
+
 ### Endereço do indivíduo
+
+
 ### Comunicações eletrônicas do indivíduo
+
+
 ### Vínculo do indivíduo
