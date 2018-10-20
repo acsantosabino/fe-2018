@@ -16,7 +16,9 @@ Importante desenvolver os 4 tipos de identificação:
 * Com certidão
 * Carteira de trabalho
 * Título de eleitor
+```
 No arquivo JSON não está definido quando o paciente nâo tem documento de identificação
+```
 
 ***Tamanho:*** X
 
