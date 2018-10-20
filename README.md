@@ -60,7 +60,7 @@ Há pouca informação a ser cadastrada e sem grande complexidade
 ``` bash
 1. npm install // Instala dependencias
 ##Executar passo 2 OU 3
-1. npm run start // Realiza o build no modo debug (não realiza minificação do arquivo javascript)
-1. npm run build // Realiza o build no modo produção (realiza minificação do arquivo javascript)
+2. npm run start // Realiza o build no modo debug (não realiza minificação do arquivo javascript)
+3. npm run build // Realiza o build no modo produção (realiza minificação do arquivo javascript)
 
 ```
