@@ -20,7 +20,7 @@ Importante desenvolver os 4 tipos de identificação:
 No arquivo JSON não está definido quando o paciente nâo tem documento de identificação
 ```
 
-***Tamanho:*** X
+***Tamanho:*** 6
 
 ### Nome do indivíduo
 Na modelagem do JSON faltou:
@@ -39,7 +39,7 @@ A parte dos dados demográficos tem bastante informações a ser inseridas e os 
 ### Endereço do indivíduo
 Há muita informação a ser inserida e os códigos do modelo de referência devem ser seguidos na implementação
 
-***Tamanho:*** X
+***Tamanho:*** 6
 
 ### Comunicações eletrônicas do indivíduo
 Há pouca informação a ser cadastrada e sem grande complexidade
