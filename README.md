@@ -47,5 +47,6 @@ Há pouca informação a ser cadastrada e sem grande complexidade
 ***Tamanho:*** X
 
 ### Vínculo do indivíduo
+Há pouca informação a ser cadastrada e sem grande complexidade
 
 ***Tamanho:*** X
