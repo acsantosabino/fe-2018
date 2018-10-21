@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import ComunicacoesEletronica from "./ComunicacoesEletronica";
 
 class Main extends React.Component {
     constructor(props, context) {
@@ -51,9 +52,7 @@ class Main extends React.Component {
                 <p>enderecos
                     <pre>{JSON.stringify(this.state.enderecos, null, 2)}</pre>
                 </p>
-                <p>comunicacoesEletronica
-                    <pre>{JSON.stringify(this.state.comunicacoesEletronica, null, 2)}</pre>
-                </p>
+                <ComunicacoesEletronica data={this.state.comunicacoesEletronica}/>
                 <p>vinculos
                     <pre>{JSON.stringify(this.state.vinculos, null, 2)}</pre>
                 </p>

@@ -102,6 +102,12 @@
       ,"preferenciaContato":"B"
       ,"detalhes":"5562981818181"
       ,"codigoUtilizacao":"1 - Comercial"
+    },
+    {
+      "meioDeComunicacao":"1"
+      ,"preferenciaContato":"B"
+      ,"detalhes":"5562981818181"
+      ,"codigoUtilizacao":"2 - Residencial"
     }
   ]
   ,"vinculos":[
