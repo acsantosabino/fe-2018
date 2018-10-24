@@ -98,16 +98,16 @@
   ]
   ,"comunicacoesEletronica":[
     {
-      "meioDeComunicacao":"1"
-      ,"preferenciaContato":"B"
+      "meioDeComunicacao":1
+      ,"preferenciaContato":"A"
       ,"detalhes":"5562981818181"
-      ,"codigoUtilizacao":"1 - Comercial"
+      ,"codigoUtilizacao":"Comercial"
     },
     {
-      "meioDeComunicacao":"1"
+      "meioDeComunicacao":2
       ,"preferenciaContato":"B"
       ,"detalhes":"5562981818181"
-      ,"codigoUtilizacao":"2 - Residencial"
+      ,"codigoUtilizacao":"Pessoal"
     }
   ]
   ,"vinculos":[
