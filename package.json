@@ -9,7 +9,8 @@
   "scripts": {
     "start": "webpack-cli --mode development",
     "build": "webpack-cli --mode production",
-    "watch": "webpack -wd"
+    "watch": "webpack -wd",
+    "dev": "webpack-dev-server --progress --colors --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -29,11 +30,19 @@
     "babel-preset-react": "^6.24.1",
     "html-webpack-plugin": "^3.0.8",
     "webpack": "^4.21.0",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
+    "css-loader": "^1.0.0",
+    "style-loader": "^0.23.1"
   },
   "dependencies": {
     "react": "^16.5.2",
     "react-bootstrap": "^0.32.4",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "axios": "^0.18.0",
+    "react-date-picker": "^7.0.0",
+    "moment": "^2.22.2"
+
   }
 }
