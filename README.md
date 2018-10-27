@@ -64,3 +64,20 @@ Há pouca informação a ser cadastrada e sem grande complexidade
 3. npm run build // Realiza o build no modo produção (realiza minificação do arquivo javascript)
 
 ```
+
+**Aviso**
+* Para iniciarem o trabalho, criem sua própria branch. 
+``` bash
+git clone https://github.com/danilloguimaraes/fe-2018.git
+cd fe-2018
+
+# Executar somente o comando com teu nome
+git checkout -b arthur
+git checkout -b danillo
+git checkout -b marcio
+git checkout -b diego
+git checkout -b daniel
+
+git push origin [seu nome]:[seu nome] 
+ex.: git push origin danillo:danillo
+```
