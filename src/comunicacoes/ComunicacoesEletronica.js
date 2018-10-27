@@ -12,35 +12,47 @@ class WriteField extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            meioDeComunicacao: '',
-            preferenciaContato: '',
+            meioDeComunicacao: 1,
+            preferenciaContato: "A",
             detalhes: '',
-            codigoUtilizacao: ''
+            codigoUtilizacao: "Comercial"
         };
         this.handleMeioChange = this.handleMeioChange.bind(this);
         this.handleDetalheChange = this.handleDetalheChange.bind(this);
         this.handlePreferenciaChange = this.handlePreferenciaChange.bind(this);
         this.handleUtilizacaoChange = this.handleUtilizacaoChange.bind(this);
+        this.remove = this.remove.bind(this);
     };
     componentWillReceiveProps(newProps) {
-        this.setState(newProps.data);
+        this.setState(JSON.parse(sessionStorage.getItem('comunicacoesEletronica'))[newProps.count]);
     };
     handleMeioChange(e) {
         console.log(e.target.value);
-        this.setState({ meioDeComunicacao: e.target.value });
+        this.state['meioDeComunicacao'] = e.target.value;
+        this.setState(this.state);
+        this.props.onDataChange(this.props.count, this.state);
     };
     handleDetalheChange(e) {
         console.log(e.target.value);
-        this.setState({ detalhes: e.target.value });
+        this.state['detalhes'] = e.target.value;
+        this.setState(this.state);
+        this.props.onDataChange(this.props.count, this.state);
     };
     handlePreferenciaChange(e) {
         console.log(e.target.value);
-        this.setState({ preferenciaContato: e.target.value });
+        this.state['preferenciaContato'] = e.target.value;
+        this.setState(this.state);
+        this.props.onDataChange(this.props.count, this.state);
     };
     handleUtilizacaoChange(e) {
         console.log(e.target.value);
-        this.setState({ codigoUtilizacao: e.target.value });
+        this.state['codigoUtilizacao'] = e.target.value;
+        this.setState(this.state);
+        this.props.onDataChange(this.props.count, this.state);
     };
+    remove() {
+        this.props.onRemove(this.props.count);
+    }
     render() {
         const meios = ['Telefone', 'Celular', 'Fax', 'Pager', 'Email', 'URL', 'Outro'];
         return (
@@ -56,7 +68,7 @@ class WriteField extends React.Component {
                     <option value={6}>Outro</option>
                 </FormControl>
 
-                <ControlLabel>{ meios[this.state.meioDeComunicacao - 1] }</ControlLabel><br />
+                <ControlLabel>{meios[this.state.meioDeComunicacao - 1]}</ControlLabel><br />
                 <FormControl
                     type="text"
                     placeholder="(xx) xxxx-xxxx"
@@ -65,7 +77,7 @@ class WriteField extends React.Component {
                 />
 
                 <ControlLabel>Preferência</ControlLabel><br />
-                <FormControl componentClass="select" 
+                <FormControl componentClass="select"
                     onChange={this.handlePreferenciaChange} value={this.state.preferenciaContato}>
                     <option value="A">Horário comercial</option>
                     <option value="B">Durante o dia</option>
@@ -75,12 +87,13 @@ class WriteField extends React.Component {
                 </FormControl>
 
                 <ControlLabel>Utilização</ControlLabel><br />
-                <FormControl componentClass="select" 
+                <FormControl componentClass="select"
                     onChange={this.handleUtilizacaoChange} value={this.state.codigoUtilizacao}>
                     <option value="Comercial">Comercial</option>
                     <option value="Pessoal">Pessoal</option>
                     <option value="Comercial e Pessoal">Comercial e Pessoal</option>
                 </FormControl>
+                <Button onClick={this.remove}>delete</Button>
             </FormGroup>
         );
     };
@@ -89,21 +102,40 @@ class ComunicacoesEletronica extends React.Component {
     constructor(props) {
         super(props);
         this.skull = {
-            meioDeComunicacao: '',
+            meioDeComunicacao: 1,
             preferenciaContato: '',
             detalhes: '',
             codigoUtilizacao: ''
         };
-        console.log(props);
         this.state = {
-            data: [this.skull]
+            data: []
         };
+        this.setState({ data: JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) });
+        this.addFields = this.addFields.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onRemove = this.onRemove.bind(this);
+        this.updateList = this.updateList.bind(this);
     }
-    componentWillReceiveProps(newProps) {
-        this.setState({ data: newProps.data });
+    componentDidMount() {
+        console.log("Comunicaçoẽs Eletronicas getState");
+        this.setState({ data: JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) });
+        window.addEventListener('storage', this.onSubmit);
     }
     addFields() {
         this.setState({ data: this.state.data.concat([this.skull]) });
+        sessionStorage.setItem('comunicacoesEletronica', JSON.stringify(this.state.data));
+    }
+    onSubmit() {
+        sessionStorage.setItem('comunicacoesEletronica', JSON.stringify(this.state.data));
+    }
+    onRemove(index) {
+        this.state.data.splice(index, 1);
+        this.setState(this.state);
+    }
+    updateList(count, data) {
+        this.state.data[count] = data;
+        console.log(this.state.data[count]);
+        this.setState(this.state);
     }
 
     render() {
@@ -116,14 +148,16 @@ class ComunicacoesEletronica extends React.Component {
                             <WriteField
                                 id="comunicacoesEletronica"
                                 count={count}
-                                data={comunicacoesEletronica}
+                                onRemove={this.onRemove}
+                                onDataChange={this.updateList}
                             />
                         ))
                     }
+                    <Button onClick={this.onSubmit}>save</Button>
                     <Button onClick={() => { this.addFields() }}>add</Button>
                 </Form>
             </div>
         );
     }
 }
-module.exports = ComunicacoesEletronica;
+module.exports = ComunicacoesEletronica;"A"
