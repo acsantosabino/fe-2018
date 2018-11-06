@@ -1,0 +1,56 @@
+body {
+    background: #fff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0;
+    padding: 30px;
+}
+form {
+    clear: both;
+    float: left;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: -3px 5px 14px 0px black;
+    margin: 20px;
+    width: 90%;
+}
+.form.item{
+    margin: 10px;
+    float: left;
+}
+.form-group {
+    margin: 10px;
+    height: fit-content;
+    border-bottom: 2px solid blue;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.control-label{
+    width: fit-content;
+  }
+.input.text{
+    border-radius: 5px;
+    height: 20px;
+}
+.btn.delete{
+    background-color: red;
+    border-radius: 50%;
+    font-size: 24px;
+}
+.center{
+    width: auto;
+    display: flex;
+    justify-content: center;
+  }
+  .clear{
+    clear: both;
+  }
+  .btn{
+      float: left;
+      margin: 10px;
+  }

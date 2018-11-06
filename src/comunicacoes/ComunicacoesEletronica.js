@@ -1,11 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { Col } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { FormGroup } from 'react-bootstrap';
 import { ControlLabel } from 'react-bootstrap';
 import { FormControl } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
+import './comunicacoes.css';
 
 
 class WriteField extends React.Component {
@@ -28,25 +27,25 @@ class WriteField extends React.Component {
     };
     handleMeioChange(e) {
         console.log(e.target.value);
-        this.state['meioDeComunicacao'] = e.target.value;
+        this.setState({'meioDeComunicacao': e.target.value});
         this.setState(this.state);
         this.props.onDataChange(this.props.count, this.state);
     };
     handleDetalheChange(e) {
         console.log(e.target.value);
-        this.state['detalhes'] = e.target.value;
+        this.setState({'detalhes': e.target.value});
         this.setState(this.state);
         this.props.onDataChange(this.props.count, this.state);
     };
     handlePreferenciaChange(e) {
         console.log(e.target.value);
-        this.state['preferenciaContato'] = e.target.value;
+        this.setState({'preferenciaContato': e.target.value});
         this.setState(this.state);
         this.props.onDataChange(this.props.count, this.state);
     };
     handleUtilizacaoChange(e) {
         console.log(e.target.value);
-        this.state['codigoUtilizacao'] = e.target.value;
+        this.setState({'codigoUtilizacao': e.target.value});
         this.setState(this.state);
         this.props.onDataChange(this.props.count, this.state);
     };
@@ -57,25 +56,31 @@ class WriteField extends React.Component {
         const meios = ['Telefone', 'Celular', 'Fax', 'Pager', 'Email', 'URL', 'Outro'];
         return (
             <FormGroup controlId={this.props.id + this.props.count}>
-                <ControlLabel>Meio</ControlLabel><br />
-                <FormControl componentClass="select" onChange={this.handleMeioChange} value={this.state.meioDeComunicacao}>
-                    <option value={1}>Telefone</option>
-                    <option value={2}>Celular</option>
-                    <option value={3}>Fax</option>
-                    <option value={3}>Pager</option>
-                    <option value={4}>Email</option>
-                    <option value={5}>URL</option>
-                    <option value={6}>Outro</option>
-                </FormControl>
+                <div className="form item">
+                    <ControlLabel>Meio</ControlLabel><br />
+                    <FormControl componentClass="select" onChange={this.handleMeioChange}value={this.state.meioDeComunicacao}>
+                        <option value={1}>Telefone</option>
+                        <option value={2}>Celular</option>
+                        <option value={3}>Fax</option>
+                        <option value={3}>Pager</option>
+                        <option value={4}>Email</option>
+                        <option value={5}>URL</option>
+                        <option value={6}>Outro</option>
+                    </FormControl>
+                </div>
 
-                <ControlLabel>{meios[this.state.meioDeComunicacao - 1]}</ControlLabel><br />
-                <FormControl
-                    type="text"
-                    placeholder="(xx) xxxx-xxxx"
-                    onChange={this.handleDetalheChange}
-                    value={this.state.detalhes}
-                />
+                <div className="form item">
+                    <ControlLabel>{meios[this.state.meioDeComunicacao - 1]}</ControlLabel><br />
+                    <FormControl
+                        className="input text"
+                        type="text"
+                        placeholder="(xx) xxxx-xxxx"
+                        onChange={this.handleDetalheChange}
+                        value={this.state.detalhes}
+                    />
+                </div>
 
+                <div className="form item">
                 <ControlLabel>Preferência</ControlLabel><br />
                 <FormControl componentClass="select"
                     onChange={this.handlePreferenciaChange} value={this.state.preferenciaContato}>
@@ -85,7 +90,9 @@ class WriteField extends React.Component {
                     <option value="D">Qualquer hora</option>
                     <option value="E">Peíodo noturno</option>
                 </FormControl>
+                </div>
 
+                <div className="form item">
                 <ControlLabel>Utilização</ControlLabel><br />
                 <FormControl componentClass="select"
                     onChange={this.handleUtilizacaoChange} value={this.state.codigoUtilizacao}>
@@ -93,7 +100,9 @@ class WriteField extends React.Component {
                     <option value="Pessoal">Pessoal</option>
                     <option value="Comercial e Pessoal">Comercial e Pessoal</option>
                 </FormControl>
-                <Button onClick={this.remove}>delete</Button>
+                </div>
+
+                <Button className="btn delete" onClick={this.remove}>&#9447;</Button>
             </FormGroup>
         );
     };
@@ -153,11 +162,14 @@ class ComunicacoesEletronica extends React.Component {
                             />
                         ))
                     }
+                    <div className="center">
                     <Button onClick={this.onSubmit}>save</Button>
                     <Button onClick={() => { this.addFields() }}>add</Button>
+                    </div>
                 </Form>
+                <div className="clear"/>
             </div>
         );
     }
 }
-module.exports = ComunicacoesEletronica;"A"
+module.exports = ComunicacoesEletronica;
