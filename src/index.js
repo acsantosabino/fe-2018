@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ComunicacoesEletronica from "./comunicacoes/ComunicacoesEletronica";
+import Vinculos from './vinculos/Vinculos';
 
 class Main extends React.Component {
     constructor(props, context) {
@@ -38,14 +39,7 @@ class Main extends React.Component {
     // componentWillMount() {
         //this.loadCommentsFromServer();
     // }
-    render() {
-        console.log("Index render");
-
-        console.log("state");
-        console.log(this.state);
-
-        console.log("comunicacoesEletronica");
-        console.log(JSON.parse(sessionStorage.getItem('comunicacoesEletronica')));
+    render(){
         return (
             <div>Hello React! Main class.
                 <p>identificadores
@@ -61,9 +55,7 @@ class Main extends React.Component {
                     <pre>{JSON.stringify(this.state.enderecos, null, 2)}</pre>
                 </p>
                 <ComunicacoesEletronica />
-                <p>vinculos
-                    <pre>{JSON.stringify(this.state.vinculos, null, 2)}</pre>
-                </p>
+                <Vinculos/>
             </div>
         );
     }
