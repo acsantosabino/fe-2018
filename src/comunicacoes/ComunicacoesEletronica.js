@@ -101,8 +101,7 @@ class WriteField extends React.Component {
                     <option value="Comercial e Pessoal">Comercial e Pessoal</option>
                 </FormControl>
                 </div>
-
-                <Button className="btn delete" onClick={this.remove}>&#9447;</Button>
+                <Button className="btn cicle delete" onClick={this.remove}>&#10008;</Button>
             </FormGroup>
         );
     };
@@ -163,8 +162,8 @@ class ComunicacoesEletronica extends React.Component {
                         ))
                     }
                     <div className="center">
-                    <Button onClick={this.onSubmit}>save</Button>
-                    <Button onClick={() => { this.addFields() }}>add</Button>
+                    <Button className='btn cicle save' onClick={this.onSubmit}>&#10004;</Button>
+                    <Button className='btn cicle add' onClick={() => { this.addFields() }}>&#43;</Button>
                     </div>
                 </Form>
                 <div className="clear"/>

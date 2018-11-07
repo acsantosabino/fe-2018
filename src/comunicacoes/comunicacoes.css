@@ -11,7 +11,7 @@ form {
     float: left;
     border: 2px solid black;
     border-radius: 20px;
-    padding: 20px;
+    padding: 10px;
     box-shadow: -3px 5px 14px 0px black;
     margin: 20px;
     width: 90%;
@@ -36,11 +36,27 @@ form {
 .input.text{
     border-radius: 5px;
     height: 20px;
+    padding-left: 10px;
 }
-.btn.delete{
-    background-color: red;
+
+.btn.cicle{
     border-radius: 50%;
     font-size: 24px;
+    font: bold;
+    font-weight: bold;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+}
+.delete{
+    background-color: red;
+    /* position: fixed; */
+}
+.save{
+    background-color: green;
+}
+.add{
+    background-color: darkblue;
 }
 .center{
     width: auto;
