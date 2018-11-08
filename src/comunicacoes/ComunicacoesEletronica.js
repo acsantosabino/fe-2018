@@ -118,7 +118,7 @@ class ComunicacoesEletronica extends React.Component {
         this.state = {
             data: []
         };
-        this.setState({ data: [] });
+        this.setState({ data: JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) ? JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) : [] });
         this.addFields = this.addFields.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);
@@ -126,7 +126,7 @@ class ComunicacoesEletronica extends React.Component {
     }
     componentDidMount() {
         console.log("Comunicaçoẽs Eletronicas getState");
-        this.setState({ data: JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) });
+        this.setState({ data: JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) ? JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) : [] });
         window.addEventListener('storage', this.onSubmit);
     }
     addFields() {
