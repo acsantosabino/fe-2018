@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import ComunicacoesEletronica from "./comunicacoes/ComunicacoesEletronica";
+import Vinculos from './vinculos/Vinculos';
 
 class Main extends React.Component {
     constructor(props, context) {
         super(props, context);
-
         this.state = {
             identificadores: [],
             nomes: [],
@@ -13,6 +14,7 @@ class Main extends React.Component {
             comunicacoesEletronica: [],
             vinculos: []
         };
+        this.loadCommentsFromServer();
     }
     loadCommentsFromServer() {
         $.ajax({
@@ -20,12 +22,13 @@ class Main extends React.Component {
             dataType: 'json',
             cache: false,
             success: function (data) {
-                this.setState({ identificadores: data.identificadores });
-                this.setState({ nomes: data.nomes });
-                this.setState({ dadosDemograficos: data.dadosDemograficos });
-                this.setState({ enderecos: data.enderecos });
-                this.setState({ comunicacoesEletronica: data.comunicacoesEletronica });
-                this.setState({ vinculos: data.vinculos });
+                sessionStorage.setItem('identificadores', JSON.stringify(data.identificadores));
+                sessionStorage.setItem('nomes', JSON.stringify(data.nomes));
+                sessionStorage.setItem('dadosDemograficos', JSON.stringify(data.dadosDemograficos));
+                sessionStorage.setItem('enderecos', JSON.stringify(data.enderecos));
+                sessionStorage.setItem('comunicacoesEletronica', JSON.stringify(data.comunicacoesEletronica));
+                sessionStorage.setItem('vinculos', JSON.stringify(data.vinculos));
+                this.setState(data);
             }.bind(this),
             error: function (xhr, status, err) {
                 this.getInitialState()
@@ -33,10 +36,10 @@ class Main extends React.Component {
             }.bind(this)
         });
     }
-    componentDidMount() {
-        this.loadCommentsFromServer();
-    }
-    render() {
+    // componentWillMount() {
+        //this.loadCommentsFromServer();
+    // }
+    render(){
         return (
             <div>Hello React! Main class.
                 <p>identificadores
@@ -51,12 +54,8 @@ class Main extends React.Component {
                 <p>enderecos
                     <pre>{JSON.stringify(this.state.enderecos, null, 2)}</pre>
                 </p>
-                <p>comunicacoesEletronica
-                    <pre>{JSON.stringify(this.state.comunicacoesEletronica, null, 2)}</pre>
-                </p>
-                <p>vinculos
-                    <pre>{JSON.stringify(this.state.vinculos, null, 2)}</pre>
-                </p>
+                <ComunicacoesEletronica />
+                <Vinculos/>
             </div>
         );
     }

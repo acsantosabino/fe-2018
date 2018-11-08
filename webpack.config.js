@@ -17,7 +17,12 @@ module.exports = {
                         "presets": ["react", "es2015"]
                     }
                 }
-            }
+            },
+            {
+                test: /\.css$/,  
+                include: [/node_modules/,/\./],  
+                loaders: ['style-loader', 'css-loader'],
+           }
         ]
     },
     plugins: [htmlPlugin]
