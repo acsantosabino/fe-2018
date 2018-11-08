@@ -98,18 +98,24 @@
   ]
   ,"comunicacoesEletronica":[
     {
-      "meioDeComunicacao":"1"
+      "meioDeComunicacao":1
+      ,"preferenciaContato":"A"
+      ,"detalhes":"5562981818181"
+      ,"codigoUtilizacao":"Comercial"
+    },
+    {
+      "meioDeComunicacao":2
       ,"preferenciaContato":"B"
       ,"detalhes":"5562981818181"
-      ,"codigoUtilizacao":"1 - Comercial"
+      ,"codigoUtilizacao":"Pessoal"
     }
   ]
   ,"vinculos":[
     {
       "identificadorVinculo":"29183HUGO"
-      ,"relacionamentoVinculo":2
-      ,"dataInicialVinculo":""
-      ,"dataFinalVinculo":""
+      ,"relacionamentoVinculo":254
+      ,"dataInicialVinculo":"2018-11-04T18:47:00.379Z"
+      ,"dataFinalVinculo":"2018-11-04T18:47:00.379Z"
     }
   ]
 }
