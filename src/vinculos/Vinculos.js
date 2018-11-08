@@ -129,7 +129,7 @@ class Vinculos extends React.Component {
         this.state = {
             data: []
         };
-        this.setState({ data: JSON.parse(sessionStorage.getItem('vinculos')) });
+        this.setState({ data: [] });
         this.addFields = this.addFields.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);

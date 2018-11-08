@@ -6,3 +6,5 @@ dist/
 
 # Log Files
 *.log
+
+.package-lock.json

@@ -118,7 +118,7 @@ class ComunicacoesEletronica extends React.Component {
         this.state = {
             data: []
         };
-        this.setState({ data: JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) });
+        this.setState({ data: [] });
         this.addFields = this.addFields.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);
