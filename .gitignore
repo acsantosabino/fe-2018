@@ -6,5 +6,7 @@ dist/
 
 # Log Files
 *.log
-.idea/
+*.idea
+git_backup/
+git_backup_marcio/
 .gitignore_*

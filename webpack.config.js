@@ -9,14 +9,17 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.js[x]?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
                     options: {
-                        "presets": ["react", "es2015"]
+                        "presets": ["react", "es2015"],
+                        "plugins": ['transform-object-rest-spread']
                     }
                 }
+            },{
+                test: /\.css$/, loaders: 'style-loader!css-loader'
             }
         ]
     },
