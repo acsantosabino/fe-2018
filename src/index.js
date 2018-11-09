@@ -1,7 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
 import ComunicacoesEletronica from "./comunicacoes/ComunicacoesEletronica";
 import Vinculos from './vinculos/Vinculos';
+import Endereco from './endereco/endereco.jsx'
+const css = require('./app.css')
+
+
 
 class Main extends React.Component {
     constructor(props, context) {
@@ -41,6 +46,9 @@ class Main extends React.Component {
     // }
     render(){
         return (
+
+
+
             <div>Hello React! Main class.
                 <p>identificadores
                     <pre>{JSON.stringify(this.state.identificadores, null, 2)}</pre>
@@ -51,12 +59,25 @@ class Main extends React.Component {
                 <p>dadosDemograficos
                     <pre>{JSON.stringify(this.state.dadosDemograficos, null, 2)}</pre>
                 </p>
+
                 <p>enderecos
                     <pre>{JSON.stringify(this.state.enderecos, null, 2)}</pre>
                 </p>
                 <ComunicacoesEletronica />
                 <Vinculos/>
+
+
+                <Endereco/>
+
+                <p>comunicacoesEletronica
+                    <pre>{JSON.stringify(this.state.comunicacoesEletronica, null, 2)}</pre>
+                </p>
+                <p>vinculos
+                    <pre>{JSON.stringify(this.state.vinculos, null, 2)}</pre>
+                </p>
+
             </div>
+
         );
     }
 }

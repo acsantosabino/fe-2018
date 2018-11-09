@@ -6,6 +6,6 @@ dist/
 
 # Log Files
 *.log
-
-.package-lock.json
-.idea/
+*.idea
+git_backup/
+git_backup_marcio/
