@@ -74,6 +74,10 @@ class Main extends React.Component {
                     <pre>{JSON.stringify(this.state.vinculos, null, 2)}</pre>
                 </p>
 
+                <p>enderecos
+                    <pre>{JSON.stringify(this.state.enderecos, null, 2)}</pre>
+                </p>
+
             </div>
 
         );
