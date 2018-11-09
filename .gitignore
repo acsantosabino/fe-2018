@@ -7,3 +7,5 @@ dist/
 # Log Files
 *.log
 *.idea
+git_backup/
+git_backup_marcio/

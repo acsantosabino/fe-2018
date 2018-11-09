@@ -54,9 +54,9 @@ class Main extends React.Component {
                 <p>dadosDemograficos
                     <pre>{JSON.stringify(this.state.dadosDemograficos, null, 2)}</pre>
                 </p>
-                <p>
+
                 <Endereco/>
-                </p>
+
                 <p>comunicacoesEletronica
                     <pre>{JSON.stringify(this.state.comunicacoesEletronica, null, 2)}</pre>
                 </p>
