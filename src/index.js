@@ -42,7 +42,7 @@ class Main extends React.Component {
         });
     }
     // componentWillMount() {
-        //this.loadCommentsFromServer();
+    //this.loadCommentsFromServer();
     // }
     render(){
         return (
@@ -60,9 +60,7 @@ class Main extends React.Component {
                     <pre>{JSON.stringify(this.state.dadosDemograficos, null, 2)}</pre>
                 </p>
 
-                <p>enderecos
-                    <pre>{JSON.stringify(this.state.enderecos, null, 2)}</pre>
-                </p>
+
                 <ComunicacoesEletronica />
                 <Vinculos/>
 
