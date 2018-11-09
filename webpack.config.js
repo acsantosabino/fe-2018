@@ -18,19 +18,9 @@ module.exports = {
                         "plugins": ['transform-object-rest-spread']
                     }
                 }
-<<<<<<< HEAD
-            },
-            {
-                test: /\.css$/,  
-                include: [/node_modules/,/\./],  
-                loaders: ['style-loader', 'css-loader'],
-           }
-=======
             },{
-            test: /\.css$/, loaders: 'style-loader!css-loader'
-
+                test: /\.css$/, loaders: 'style-loader!css-loader'
             }
->>>>>>> marcio
         ]
     },
     plugins: [htmlPlugin]
