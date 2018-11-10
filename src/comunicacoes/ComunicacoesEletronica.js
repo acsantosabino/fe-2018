@@ -171,4 +171,5 @@ class ComunicacoesEletronica extends React.Component {
         );
     }
 }
-module.exports = ComunicacoesEletronica;
+
+export default ComunicacoesEletronica;
