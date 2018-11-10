@@ -182,4 +182,5 @@ class Vinculos extends React.Component {
         );
     }
 }
-module.exports = Vinculos;
+
+export default Vinculos;
