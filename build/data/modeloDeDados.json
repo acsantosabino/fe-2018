@@ -1,31 +1,38 @@
 {
   "identificadores": [
     {
-    "designacao":""
-    ,"areaGeografica":""
+    "designacao":"LOCAL123"
+    ,"areaGeografica":"1"
+    ,"emissor":"HOSPITAL"
+    ,"dataEmissao":"10/10/1980"
+    ,"tipoDocumento":"0"
+    },
+    {
+    "designacao":"CER0123"
+    ,"areaGeografica":"2"
     ,"emissor":""
     ,"dataEmissao":""
-    ,"tipoDocumento":"certidoes"
+    ,"tipoDocumento":"1"
     ,"nomeCartorio":""
     ,"livro":0
     ,"folha":0
     ,"termo":0
     }
     ,{
-    "designacao":""
-    ,"areaGeografica":""
+    "designacao":"CTR0123"
+    ,"areaGeografica":"0"
     ,"emissor":""
     ,"dataEmissao":""
-    ,"tipoDocumento":"carteiraTrabalho"
+    ,"tipoDocumento":"2"
     ,"serie":0
     ,"estado":""
     }
     ,{
-    "designacao":""
-    ,"areaGeografica":""
+    "designacao":"TIT0123"
+    ,"areaGeografica":"3"
     ,"emissor":""
     ,"dataEmissao":""
-    ,"tipoDocumento":"tituloDeEleitor"
+    ,"tipoDocumento":"3"
     ,"secao":0
     ,"zona":0
     }
