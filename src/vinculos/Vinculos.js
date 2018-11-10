@@ -129,14 +129,14 @@ class Vinculos extends React.Component {
         this.state = {
             data: []
         };
-        this.setState({ data: [] });
+        this.setState({ data: JSON.parse(sessionStorage.getItem('vinculos')) ? JSON.parse(sessionStorage.getItem('vinculos')) : [] });
         this.addFields = this.addFields.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);
         this.updateList = this.updateList.bind(this);
     }
     componentDidMount() {
-        this.setState({ data: JSON.parse(sessionStorage.getItem('vinculos')) });
+        this.setState({ data: JSON.parse(sessionStorage.getItem('vinculos')) ? JSON.parse(sessionStorage.getItem('vinculos')) : [] });
         window.addEventListener('storage', this.onSubmit);
     }
     addFields() {
