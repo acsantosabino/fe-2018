@@ -11,3 +11,5 @@ git_backup/
 git_backup_marcio/
 .gitignore_*
 .package-lock.json
+
+build/
