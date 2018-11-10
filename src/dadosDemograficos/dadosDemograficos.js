@@ -29,22 +29,33 @@ class DadosDemograficos extends Component {
   
     render() {
       return (
-        <form>
-          <FormGroup
-            controlId="formBasicText"
-            validationState={this.getValidationState()}
-          >
-            <ControlLabel>Working example with validation</ControlLabel>
-            <FormControl
-              type="text"
-              value={this.state.value}
-              placeholder="Enter text"
-              onChange={this.handleChange}
-            />
-            <FormControl.Feedback />
-            <HelpBlock>Validation is based on string length.</HelpBlock>
-          </FormGroup>
-        </form>
+        <div>
+          <h2>Dados Demográficos</h2>
+          <form>
+            <FormGroup
+              controlId="formBasicText"
+              validationState={this.getValidationState()}
+            >
+              <ControlLabel>Mãe</ControlLabel>
+              <FormControl
+                type="text"
+                value={this.state.value}
+                placeholder="nome completo da mãe"
+                onChange={this.handleChange}
+              />
+              <FormControl.Feedback />
+              <ControlLabel>Pai</ControlLabel>
+              <FormControl
+                type="text"
+                value={this.state.value}
+                placeholder="nome completo do pai"
+                onChange={this.handleChange}
+              />
+              <FormControl.Feedback />
+              {/* <HelpBlock>Validation is based on string length.</HelpBlock> */}
+            </FormGroup>
+          </form>
+        </div>
       );
     }
   }
