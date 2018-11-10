@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Endereco from './endereco/endereco.jsx'
 import ComunicacoesEletronica from "./comunicacoes/ComunicacoesEletronica";
 import Vinculos from './vinculos/Vinculos';
+import DadosDemograficos from './dadosDemograficos/dadosDemograficos';
 const css = require('./app.css')
 
 
@@ -52,11 +53,8 @@ class Main extends React.Component {
                 <p>nomes
                     <pre>{JSON.stringify(this.state.nomes, null, 2)}</pre>
                 </p>
-                <p>dadosDemograficos
-                    <pre>{JSON.stringify(this.state.dadosDemograficos, null, 2)}</pre>
-                </p>
 
-
+                <DadosDemograficos />
                 <ComunicacoesEletronica />
                 <Vinculos/>
                 <Endereco/>
