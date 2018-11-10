@@ -4,11 +4,9 @@ import { FormGroup } from 'react-bootstrap';
 import { ControlLabel } from 'react-bootstrap';
 import { FormControl } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
-import { Modal } from 'react-bootstrap';
 import DatePicker from 'react-date-picker';
 
-
-class WriteField extends React.Component {
+class VinculoField extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +22,7 @@ class WriteField extends React.Component {
         this.remove = this.remove.bind(this);
     };
     componentWillReceiveProps(newProps) {
-        this.setState(JSON.parse(sessionStorage.getItem('vinculos'))[newProps.count]);
+        this.setState(newProps.data, ()=>{console.log("vinculo get props "+ JSON.stringify(newProps.data))});
     };
     handleIdentificadorVinculoChange(e) {
         console.log(e.target.value);
@@ -120,6 +118,7 @@ class WriteField extends React.Component {
 class Vinculos extends React.Component {
     constructor(props) {
         super(props);
+        this.key = 'vinculos';
         this.skull = {
             identificadorVinculo: '',
             relacionamentoVinculo: 254,
@@ -129,15 +128,25 @@ class Vinculos extends React.Component {
         this.state = {
             data: []
         };
-        this.setState({ data: JSON.parse(sessionStorage.getItem('vinculos')) ? JSON.parse(sessionStorage.getItem('vinculos')) : [] });
         this.addFields = this.addFields.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);
         this.updateList = this.updateList.bind(this);
     }
-    componentDidMount() {
-        this.setState({ data: JSON.parse(sessionStorage.getItem('vinculos')) ? JSON.parse(sessionStorage.getItem('vinculos')) : [] });
-        window.addEventListener('storage', this.onSubmit);
+    componentWillReceiveProps(newProps) {
+        console.log(JSON.parse(sessionStorage.getItem(this.key)));
+        if(sessionStorage.hasOwnProperty(this.key)) {
+            // get the key's value from sessionStorage
+            let value = sessionStorage.getItem(this.key);
+            // parse the sessionStorage string and setState
+            try {
+                value = JSON.parse(value);
+                this.setState({ data: value });
+            } catch (e) {
+                // handle empty string
+                this.setState({ data: newProps.data });
+            }
+        }
     }
     addFields() {
         this.setState({ data: this.state.data.concat([this.skull]) });
@@ -157,15 +166,15 @@ class Vinculos extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <div>
                 <h2>Vínculos</h2>
                 <Form >
                     {
                         this.state.data.map((vinculos, count) => (
-                            <WriteField
+                            <VinculoField
                                 id="vinculos"
+                                data={vinculos}
                                 count={count}
                                 onRemove={this.onRemove}
                                 onDataChange={this.updateList}

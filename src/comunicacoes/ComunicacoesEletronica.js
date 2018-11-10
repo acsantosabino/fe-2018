@@ -23,29 +23,25 @@ class WriteField extends React.Component {
         this.remove = this.remove.bind(this);
     };
     componentWillReceiveProps(newProps) {
-        this.setState(JSON.parse(sessionStorage.getItem('comunicacoesEletronica'))[newProps.count]);
+        this.setState(newProps.data);
     };
     handleMeioChange(e) {
-        console.log(e.target.value);
-        this.setState({'meioDeComunicacao': e.target.value});
+        this.state['meioDeComunicacao'] = e.target.value;
         this.setState(this.state);
         this.props.onDataChange(this.props.count, this.state);
     };
     handleDetalheChange(e) {
-        console.log(e.target.value);
-        this.setState({'detalhes': e.target.value});
+        this.state['detalhes'] = e.target.value;
         this.setState(this.state);
         this.props.onDataChange(this.props.count, this.state);
     };
     handlePreferenciaChange(e) {
-        console.log(e.target.value);
-        this.setState({'preferenciaContato': e.target.value});
+        this.state['preferenciaContato'] = e.target.value;
         this.setState(this.state);
         this.props.onDataChange(this.props.count, this.state);
     };
     handleUtilizacaoChange(e) {
-        console.log(e.target.value);
-        this.setState({'codigoUtilizacao': e.target.value});
+        this.state['codigoUtilizacao'] = e.target.value;
         this.setState(this.state);
         this.props.onDataChange(this.props.count, this.state);
     };
@@ -58,7 +54,7 @@ class WriteField extends React.Component {
             <FormGroup controlId={this.props.id + this.props.count}>
                 <div className="form item">
                     <ControlLabel>Meio</ControlLabel><br />
-                    <FormControl componentClass="select" onChange={this.handleMeioChange}value={this.state.meioDeComunicacao}>
+                    <FormControl componentClass="select" onChange={this.handleMeioChange} value={this.state.meioDeComunicacao}>
                         <option value={1}>Telefone</option>
                         <option value={2}>Celular</option>
                         <option value={3}>Fax</option>
@@ -109,6 +105,7 @@ class WriteField extends React.Component {
 class ComunicacoesEletronica extends React.Component {
     constructor(props) {
         super(props);
+        this.key = 'comunicacoesEletronica';
         this.skull = {
             meioDeComunicacao: 1,
             preferenciaContato: '',
@@ -118,16 +115,25 @@ class ComunicacoesEletronica extends React.Component {
         this.state = {
             data: []
         };
-        this.setState({ data: JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) ? JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) : [] });
         this.addFields = this.addFields.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onRemove = this.onRemove.bind(this);
         this.updateList = this.updateList.bind(this);
     }
-    componentDidMount() {
-        console.log("Comunicaçoẽs Eletronicas getState");
-        this.setState({ data: JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) ? JSON.parse(sessionStorage.getItem('comunicacoesEletronica')) : [] });
-        window.addEventListener('storage', this.onSubmit);
+    componentWillReceiveProps(newProps) {
+        console.log(JSON.parse(sessionStorage.getItem(this.key)));
+        if(sessionStorage.hasOwnProperty(this.key)) {
+            // get the key's value from sessionStorage
+            let value = sessionStorage.getItem(this.key);
+            // parse the sessionStorage string and setState
+            try {
+                value = JSON.parse(value);
+                this.setState({ data: value });
+            } catch (e) {
+                // handle empty string
+                this.setState({ data: newProps.data });
+            }
+        }
     }
     addFields() {
         this.setState({ data: this.state.data.concat([this.skull]) });
@@ -142,7 +148,6 @@ class ComunicacoesEletronica extends React.Component {
     }
     updateList(count, data) {
         this.state.data[count] = data;
-        console.log(this.state.data[count]);
         this.setState(this.state);
     }
 
@@ -155,6 +160,7 @@ class ComunicacoesEletronica extends React.Component {
                         this.state.data.map((comunicacoesEletronica, count) => (
                             <WriteField
                                 id="comunicacoesEletronica"
+                                data={comunicacoesEletronica}
                                 count={count}
                                 onRemove={this.onRemove}
                                 onDataChange={this.updateList}
