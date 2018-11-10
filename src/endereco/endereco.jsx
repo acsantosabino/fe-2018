@@ -24,7 +24,7 @@ export default class Endereco extends Component {
     remove(value) {
         let data = [...this.state.dados]
         let index = data.findIndex(v => v === value)
-        data = data.slice(index, 1)
+        data = data.splice(index, 1)
         this.setState({dados:data})
     }
 
