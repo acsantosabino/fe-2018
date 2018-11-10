@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import Endereco from './endereco/endereco.jsx'
 import ComunicacoesEletronica from "./comunicacoes/ComunicacoesEletronica";
 import Vinculos from './vinculos/Vinculos';
-import Endereco from './endereco/endereco.jsx'
 const css = require('./app.css')
 
 
