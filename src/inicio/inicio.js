@@ -13,6 +13,7 @@ import React from 'react';
 import axios from 'axios'
 
 import Nomes from '../nomes/nomes';
+import Identificador from '../identificador/Identificador';
 import withRoot from '../withRoot';
 
 /* 
@@ -70,7 +71,7 @@ function getStepContent(step) {
     case 0:
       return <Nomes />;
     case 1:
-      return <Nomes />;
+      return <Identificador />;
     case 2:
       return <Nomes />;
     case 3:
