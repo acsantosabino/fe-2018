@@ -21,6 +21,7 @@ import Endereco from '../endereco/endereco'
 /*
 import ComunicacoesEletronica from "./comunicacoes/ComunicacoesEletronica";
 import Vinculos from './vinculos/Vinculos'; */
+import DadosDemograficos from '../demografico/demografico';
 const styles = theme => ({
   appBar: {
     position: "relative"
@@ -74,7 +75,7 @@ function getStepContent(step) {
     case 1:
       return <Identificador />;
     case 2:
-      return <Nomes />;
+      return <DadosDemograficos />;
     case 3:
         return <Endereco />;
     case 4:
