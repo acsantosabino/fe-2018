@@ -78,7 +78,6 @@ export default class Nomes extends React.Component {
   clear() {
     this.setState({
       nome: "",
-      usoNome: "",
       sobrenome: "",
       sufixo: "",
       titulo: ""
@@ -281,7 +280,7 @@ export default class Nomes extends React.Component {
             {this.state.editando && (
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={this.updateNome}
               >
                 Salvar edição
