@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+import StepButton from '@material-ui/core/StepButton';
 import Stepper from '@material-ui/core/Stepper';
 import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,10 +13,12 @@ import React from 'react';
 import axios from 'axios'
 
 import Nomes from '../nomes/nomes';
+import Identificador from '../identificador/Identificador';
 import withRoot from '../withRoot';
 
-/* 
-import Endereco from './endereco/endereco.jsx'
+
+import Endereco from '../endereco/endereco'
+/*
 import ComunicacoesEletronica from "./comunicacoes/ComunicacoesEletronica";
 import Vinculos from './vinculos/Vinculos'; */
 import DadosDemograficos from '../demografico/demografico';
@@ -71,13 +73,13 @@ function getStepContent(step) {
     case 0:
       return <Nomes />;
     case 1:
-      return <Nomes />;
+      return <Identificador />;
     case 2:
       return <DadosDemograficos />;
     case 3:
-      return <Nomes />;
+        return <Endereco />;
     case 4:
-      return <Nomes />;
+        return <Nomes />;
     case 5:
       return <Nomes />;
     default:
@@ -101,6 +103,12 @@ class Inicio extends React.Component {
     this.loadCommentsFromServer();
   }
 
+  handleStep = step => () => {
+    this.setState({
+      activeStep: step,
+    });
+  };
+
   handleNext = () => {
     this.setState(state => ({
       activeStep: state.activeStep + 1
@@ -122,7 +130,6 @@ class Inicio extends React.Component {
   loadCommentsFromServer() {
     axios.get(this.state.url).then(response =>{
       sessionStorage.setItem('identificadores', JSON.stringify(response.data.identificadores));
-      sessionStorage.setItem('nomes', JSON.stringify(response.data.nomes));
       sessionStorage.setItem('dadosDemograficos', JSON.stringify(response.data.dadosDemograficos));
       sessionStorage.setItem('enderecos', JSON.stringify(response.data.enderecos));
       sessionStorage.setItem('comunicacoesEletronica', JSON.stringify(response.data.comunicacoesEletronica));
@@ -154,51 +161,23 @@ class Inicio extends React.Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
-              Cadastro de paciente
+             Cadastro do Indivíduo
             </Typography>
-            <Stepper activeStep={activeStep} className={classes.stepper}>
-              {steps.map(label => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
+              <Stepper nonLinear className={classes.stepper} activeStep={activeStep}>
+              {steps.map((label, index) => {
+                return (
+                  <Step key={label}>
+                    <StepButton
+                      onClick={this.handleStep(index)}>
+                      {label}
+                    </StepButton>
+                  </Step>
+                );
+              })}
             </Stepper>
-            <React.Fragment>
-              {activeStep === steps.length ? (
-                <React.Fragment>
-                  <Typography variant="h5" gutterBottom>
-                    Paciente cadastrado com sucesso!
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    Lorem iphson
-                  </Typography>
-                </React.Fragment>
-              ) : (
                 <React.Fragment>
                   {getStepContent(activeStep)}
-                  <div className={classes.buttons}>
-                    {activeStep !== 0 && (
-                      <Button
-                        onClick={this.handleBack}
-                        className={classes.button}
-                      >
-                        Back
-                      </Button>
-                    )}
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={this.handleNext}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1
-                        ? "Finalizar cadastro"
-                        : "Avançar"}
-                    </Button>
-                  </div>
                 </React.Fragment>
-              )}
-            </React.Fragment>
           </Paper>
         </main>
       </React.Fragment>
