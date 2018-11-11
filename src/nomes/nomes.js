@@ -46,11 +46,11 @@ export default class Nomes extends React.Component {
 
   addNome() {
 
-    if(this.state.sobrenome == null || this.state.sobrenome == '') {
+    if(this.state.sobrenome === null || this.state.sobrenome === '') {
       return alert("O campo 'sobrenome' está vazio");
     }
 
-    if(this.state.nomes.length == 9) {
+    if(this.state.nomes.length === 9) {
       return alert("Quantidade máxima de nomes excedida");
     }
 
@@ -100,11 +100,11 @@ export default class Nomes extends React.Component {
   }
 
   updateNome() {
-    if(this.state.sobrenome == null || this.state.sobrenome == '') {
+    if(this.state.sobrenome === null || this.state.sobrenome === '') {
       return alert("O campo 'sobrenome' está vazio");
     }
-
-    this.state.nomes[this.state.nomes.findIndex(nome => nome.id === this.state.id)] = {
+    let nomesList = this.state.nomes;
+    nomesList[this.state.nomes.findIndex(nome => nome.id === this.state.id)] = {
       id: this.state.id,
       nome: this.state.nome,
       sobrenome: this.state.sobrenome,
@@ -114,8 +114,9 @@ export default class Nomes extends React.Component {
       usoNome: this.state.usoNome,
       condicional: this.state.condicional
     };
+
     this.clear();
-    this.setState({ nomes: this.state.nomes, editando: false });
+    this.setState({ nomes: nomesList, editando: false });
     sessionStorage.setItem("nomes", JSON.stringify(this.state.nomes));
   }
 
