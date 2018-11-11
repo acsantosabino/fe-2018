@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
-import StepButton from '@material-ui/core/StepButton';
+import StepLabel from '@material-ui/core/StepLabel';
 import Stepper from '@material-ui/core/Stepper';
 import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,9 +18,8 @@ import withRoot from '../withRoot';
 
 
 import Endereco from '../endereco/endereco'
-/*
-import ComunicacoesEletronica from "./comunicacoes/ComunicacoesEletronica";
-import Vinculos from './vinculos/Vinculos'; */
+import ComunicacoesEletronica from "../comunicacoes/ComunicacoesEletronica";
+import Vinculos from '../vinculos/Vinculos';
 import DadosDemograficos from '../demografico/demografico';
 const styles = theme => ({
   appBar: {
@@ -68,7 +67,7 @@ const steps = [
   "Vínculo"
 ];
 
-function getStepContent(step) {
+function getStepContent(step, id) {
   switch (step) {
     case 0:
       return <Nomes />;
@@ -79,9 +78,9 @@ function getStepContent(step) {
     case 3:
         return <Endereco />;
     case 4:
-        return <Nomes />;
+        return <ComunicacoesEletronica data={id.comunicacoesEletronica}/>;
     case 5:
-      return <Nomes />;
+    return <Vinculos data={id.vinculos}/>;
     default:
       throw new Error("Unknown step");
   }
@@ -91,23 +90,20 @@ class Inicio extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      identificadores: [],
-      nomes: [],
-      dadosDemograficos: [],
-      enderecos: [],
-      comunicacoesEletronica: [],
-      vinculos: [],
+      id: {
+        identificadores: [],
+        nomes: [],
+        dadosDemograficos: [],
+        enderecos: [],
+        comunicacoesEletronica: [],
+        vinculos: []
+      },
       activeStep: 0,
       url : "../data/modeloDeDados.json"
     };
+    this.url= "../data/modeloDeDados.json";
     this.loadCommentsFromServer();
   }
-
-  handleStep = step => () => {
-    this.setState({
-      activeStep: step,
-    });
-  };
 
   handleNext = () => {
     this.setState(state => ({
@@ -128,22 +124,35 @@ class Inicio extends React.Component {
   };
 
   loadCommentsFromServer() {
-    axios.get(this.state.url).then(response =>{
-      sessionStorage.setItem('identificadores', JSON.stringify(response.data.identificadores));
-      sessionStorage.setItem('dadosDemograficos', JSON.stringify(response.data.dadosDemograficos));
-      sessionStorage.setItem('enderecos', JSON.stringify(response.data.enderecos));
-      sessionStorage.setItem('comunicacoesEletronica', JSON.stringify(response.data.comunicacoesEletronica));
-      sessionStorage.setItem('vinculos', JSON.stringify(response.data.vinculos));
-      this.setState(response.data);
-   }).catch(e =>  {
- 
-    console.error(e);
-   });
-}
-// componentWillMount() {
-//this.loadCommentsFromServer();
+    axios.get(this.url).then(response => {
+      // for all items in state
+      let id = this.state.id;
+      for (let key in this.state.id) {
+        // if the key exists in sessionStorage
+        if (sessionStorage.hasOwnProperty(key)) {
+          // get the key's value from sessionStorage
+          var value = sessionStorage.getItem(key);
+          // parse the sessionStorage string and setState
+          try {
+            value = JSON.parse(value);
+            id[key]= value;
+            this.setState({'id':id});
+          } catch (e) {
+            sessionStorage.setItem(key, JSON.stringify(response.data[key]));
+          }
+        }
+        else {
+          sessionStorage.setItem(key, JSON.stringify(response.data[key]));
+        }
+      }
+    }).catch(e => {
 
-
+      console.error(e);
+    });
+  }
+  componentDidMount() {
+    this.loadCommentsFromServer();
+  }
   render() {
     const { classes } = this.props;
     const { activeStep } = this.state;

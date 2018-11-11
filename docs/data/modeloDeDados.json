@@ -1,38 +1,31 @@
 {
   "identificadores": [
     {
-    "designacao":"LOCAL123"
-    ,"areaGeografica":"1"
-    ,"emissor":"HOSPITAL"
-    ,"dataEmissao":"10/10/1980"
-    ,"tipoDocumento":"0"
-    },
-    {
-    "designacao":"CER0123"
-    ,"areaGeografica":"2"
+    "designacao":""
+    ,"areaGeografica":""
     ,"emissor":""
     ,"dataEmissao":""
-    ,"tipoDocumento":"1"
+    ,"tipoDocumento":"certidoes"
     ,"nomeCartorio":""
     ,"livro":0
     ,"folha":0
     ,"termo":0
     }
     ,{
-    "designacao":"CTR0123"
-    ,"areaGeografica":"0"
+    "designacao":""
+    ,"areaGeografica":""
     ,"emissor":""
     ,"dataEmissao":""
-    ,"tipoDocumento":"2"
+    ,"tipoDocumento":"carteiraTrabalho"
     ,"serie":0
     ,"estado":""
     }
     ,{
-    "designacao":"TIT0123"
-    ,"areaGeografica":"3"
+    "designacao":""
+    ,"areaGeografica":""
     ,"emissor":""
     ,"dataEmissao":""
-    ,"tipoDocumento":"3"
+    ,"tipoDocumento":"tituloDeEleitor"
     ,"secao":0
     ,"zona":0
     }
@@ -121,8 +114,8 @@
     {
       "identificadorVinculo":"29183HUGO"
       ,"relacionamentoVinculo":254
-      ,"dataInicialVinculo":"2018-11-04"
-      ,"dataFinalVinculo":"2018-11-04"
+      ,"dataInicialVinculo":"04/11/2018"
+      ,"dataFinalVinculo":"04/11/2018"
     }
   ]
 }

@@ -11,7 +11,11 @@
     "@material-ui/core": "latest",
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
+<<<<<<< HEAD
     "gh-pages": "^2.0.1",
+=======
+    "material-ui-icons": "^1.0.0-beta.36",
+>>>>>>> recontrução com material-ui
     "moment": "^2.22.2",
     "prop-types": "latest",
     "react": "latest",

@@ -1,10 +1,15 @@
 import React from "react";
-import { Form } from 'react-bootstrap';
-import { FormGroup } from 'react-bootstrap';
-import { ControlLabel } from 'react-bootstrap';
-import { FormControl } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import DatePicker from 'react-date-picker';
+import FormGroup from '@material-ui/core/FormGroup';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
+import Grid from '@material-ui/core/Grid';
 
 class VinculoField extends React.Component {
     constructor(props) {
@@ -12,8 +17,8 @@ class VinculoField extends React.Component {
         this.state = {
             identificadorVinculo: '',
             relacionamentoVinculo: 254,
-            dataInicialVinculo: new Date(),
-            dataFinalVinculo: new Date()
+            dataInicialVinculo: '',
+            dataFinalVinculo: ''
         };
         this.handleIdentificadorVinculoChange = this.handleIdentificadorVinculoChange.bind(this);
         this.handleRelacionamentoVinculoChange = this.handleRelacionamentoVinculoChange.bind(this);
@@ -21,96 +26,121 @@ class VinculoField extends React.Component {
         this.handleDataFinalVinculoChange = this.handleDataFinalVinculoChange.bind(this);
         this.remove = this.remove.bind(this);
     };
-    componentWillReceiveProps(newProps) {
-        this.setState(newProps.data, ()=>{console.log("vinculo get props "+ JSON.stringify(newProps.data))});
+    componentDidMount() {
+        this.setState(this.props.vinc);
     };
     handleIdentificadorVinculoChange(e) {
         console.log(e.target.value);
-        this.state['identificadorVinculo'] = e.target.value;
-        this.setState(this.state);
-        this.props.onDataChange(this.props.count, this.state);
+        this.setState({ 'identificadorVinculo': e.target.value }, () => {
+            this.props.onDataChange(this.props.count, this.state);
+        });
     };
     handleRelacionamentoVinculoChange(e) {
         console.log(e.target.value);
-        this.state['relacionamentoVinculo'] = e.target.value;
-        this.setState(this.state);
-        this.props.onDataChange(this.props.count, this.state);
+        this.setState({ 'relacionamentoVinculo': e.target.value }, () => {
+            this.props.onDataChange(this.props.count, this.state);
+        });
     };
-    handleDataInicialVinculoChange(date) {
-        console.log(date);
-        this.state['dataInicialVinculo'] = new Date(date);
-        this.setState(this.state);
-        this.props.onDataChange(this.props.count, this.state);
+    handleDataInicialVinculoChange(e) {
+        console.log(e.target.value);
+        this.setState({ 'dataInicialVinculo': e.target.value }, () => {
+            this.props.onDataChange(this.props.count, this.state);
+        });
     };
-    handleDataFinalVinculoChange(date) {
-        console.log(date);
-        this.state['dataFinalVinculo'] = new Date(date);
-        this.setState(this.state);
-        this.props.onDataChange(this.props.count, this.state);
+    handleDataFinalVinculoChange(e) {
+        console.log(e.target.value);
+        this.setState({ 'dataFinalVinculo': e.target.value }, () => {
+            this.props.onDataChange(this.props.count, this.state);
+        });
     };
     remove() {
         this.props.onRemove(this.props.count);
     }
     render() {
         return (
-            <FormGroup controlId={this.props.id + this.props.count}>
-
-            <div className="form item">
-                <ControlLabel>Identificador do Vinculo</ControlLabel><br />
-                <FormControl
-                    type="text"
-                    className="input text"
-                    onChange={this.handleIdentificadorVinculoChange}
-                    value={this.state.identificadorVinculo}
-                />
-                </div>
-
-                <div className="form item">
-                <ControlLabel>Relacionamento</ControlLabel><br />
-                <FormControl componentClass="select" onChange={this.handleRelacionamentoVinculoChange} value={this.state.relacionamentoVinculo}>
-                    <option value={7}>Avó materna</option>
-                    <option value={8}>Avô materno</option>
-                    <option value={22}>Cônjugue</option>
-                    <option value={23}>Irmão</option>
-                    <option value={24}>Irmã</option>
-                    <option value={25}>Meio-irmão</option>
-                    <option value={26}>Meio-irmã</option>
-                    <option value={27}>Irmãos</option>
-                    <option value={28}>Criança</option>
-                    <option value={29}>Filha</option>
-                    <option value={36}>Avó paterna</option>
-                    <option value={37}>Avô paterno</option>
-                    <option value={38}>Tio materno</option>
-                    <option value={40}>Tio paterno</option>
-                    <option value={41}>Tia paterna</option>
-                    <option value={939}>Tia materna</option>
-                    <option value={189}>Recém-nascido</option>
-                    <option value={254}>Pais</option>
-                    <option value={262}>Mãe Adotiva</option>
-                    <option value={263}>Pai Adotivo</option>
-                    <option value={264}>Responsável</option>
-                    <option value={265}>Coabitante</option>
-                </FormControl>
-                </div>
-
-                <div className="form item">
-                <ControlLabel>Data de Início</ControlLabel><br />
-                <DatePicker
-                    id="dataInicialVinculo"
-                    onChange={this.handleDataInicialVinculoChange}
-                    value={this.state.dataInicialVinculo}
-                />
-                </div>
-
-                <div className="form item">
-                <ControlLabel>Data de Fim</ControlLabel><br />
-                <DatePicker
-                    id="dataFinalVinculo"
-                    onChange={this.handleDataFinalVinculoChange}
-                    value={this.state.dataFinalVinculo}
-                />
-                </div>
-                <Button className="btn cicle delete" onClick={this.remove}>&#10008;</Button>
+            <FormGroup id={this.props.vincId + this.props.count}>
+                <Grid container
+                    spacing={6}
+                    direction="row"
+                    justify="center"
+                    alignItems="center">
+                    <Grid item xs={12} sm={11}>
+                        <Grid container spacing={6}>
+                            <Grid item xs={12} sm={5}>
+                                <TextField
+                                    label='Identificador do Vinculo'
+                                    type="text"
+                                    className="input text"
+                                    onChange={this.handleIdentificadorVinculoChange}
+                                    value={this.state.identificadorVinculo}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={3}>
+                                <FormControl>
+                                    <InputLabel>Relacionamento</InputLabel><br />
+                                    <Select
+                                        onChange={this.handleRelacionamentoVinculoChange}
+                                        value={this.state.relacionamentoVinculo}>
+                                        <MenuItem value={7}>Avó materna</MenuItem>
+                                        <MenuItem value={8}>Avô materno</MenuItem>
+                                        <MenuItem value={22}>Cônjugue</MenuItem>
+                                        <MenuItem value={23}>Irmão</MenuItem>
+                                        <MenuItem value={24}>Irmã</MenuItem>
+                                        <MenuItem value={25}>Meio-irmão</MenuItem>
+                                        <MenuItem value={26}>Meio-irmã</MenuItem>
+                                        <MenuItem value={27}>Irmãos</MenuItem>
+                                        <MenuItem value={28}>Criança</MenuItem>
+                                        <MenuItem value={29}>Filha</MenuItem>
+                                        <MenuItem value={36}>Avó paterna</MenuItem>
+                                        <MenuItem value={37}>Avô paterno</MenuItem>
+                                        <MenuItem value={38}>Tio materno</MenuItem>
+                                        <MenuItem value={40}>Tio paterno</MenuItem>
+                                        <MenuItem value={41}>Tia paterna</MenuItem>
+                                        <MenuItem value={939}>Tia materna</MenuItem>
+                                        <MenuItem value={189}>Recém-nascido</MenuItem>
+                                        <MenuItem value={254}>Pais</MenuItem>
+                                        <MenuItem value={262}>Mãe Adotiva</MenuItem>
+                                        <MenuItem value={263}>Pai Adotivo</MenuItem>
+                                        <MenuItem value={264}>Responsável</MenuItem>
+                                        <MenuItem value={265}>Coabitante</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={2}>
+                                <TextField
+                                    id="dataInicialVinculo"
+                                    label="Data de Início"
+                                    type="date"
+                                    onChange={this.handleDataInicialVinculoChange}
+                                    value={this.state.dataInicialVinculo}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={2}>
+                                <TextField
+                                    id="dataFinalVinculo"
+                                    label="Data de Fim"
+                                    type="date"
+                                    onChange={this.handleDataFinalVinculoChange}
+                                    value={this.state.dataFinalVinculo}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} sm={1}>
+                        <IconButton variant="fab" color="secondary" aria-label="Delete" onClick={this.remove}>
+                            <DeleteIcon fontSize="large" />
+                        </IconButton>
+                    </Grid>
+                </Grid>
             </FormGroup>
         );
     };
@@ -133,9 +163,9 @@ class Vinculos extends React.Component {
         this.onRemove = this.onRemove.bind(this);
         this.updateList = this.updateList.bind(this);
     }
-    componentWillReceiveProps(newProps) {
+    componentWillReceiveProps() {
         console.log(JSON.parse(sessionStorage.getItem(this.key)));
-        if(sessionStorage.hasOwnProperty(this.key)) {
+        if (sessionStorage.hasOwnProperty(this.key)) {
             // get the key's value from sessionStorage
             let value = sessionStorage.getItem(this.key);
             // parse the sessionStorage string and setState
@@ -144,49 +174,71 @@ class Vinculos extends React.Component {
                 this.setState({ data: value });
             } catch (e) {
                 // handle empty string
-                this.setState({ data: newProps.data });
+                this.setState({ data: this.props.data });
             }
         }
+        else {
+            this.setState({ data: this.props.data });
+            sessionStorage.setItem(this.key, JSON.stringify(this.props.data[this.key]));
+        }
+    }
+    componentDidMount(){
+        this.componentWillReceiveProps();
     }
     addFields() {
         this.setState({ data: this.state.data.concat([this.skull]) });
-        sessionStorage.setItem('vinculos', JSON.stringify(this.state.data));
+        sessionStorage.setItem(this.key, JSON.stringify(this.state.data));
     }
     onSubmit() {
-        sessionStorage.setItem('vinculos', JSON.stringify(this.state.data));
+        sessionStorage.setItem(this.key, JSON.stringify(this.state.data));
     }
     onRemove(index) {
         this.state.data.splice(index, 1);
         this.setState(this.state);
     }
     updateList(count, data) {
-        this.state.data[count] = data;
-        console.log(this.state.data[count]);
-        this.setState(this.state);
+        let datas = this.state.data;
+        datas[count] = data;
+        this.setState({ 'data': datas }, () => {
+            console.log(this.state.data[count]);
+        });
     }
 
     render() {
         return (
             <div>
                 <h2>Vínculos</h2>
-                <Form >
-                    {
-                        this.state.data.map((vinculos, count) => (
-                            <VinculoField
-                                id="vinculos"
-                                data={vinculos}
-                                count={count}
-                                onRemove={this.onRemove}
-                                onDataChange={this.updateList}
-                            />
-                            ))
-                        }
-                        <div className="clear"/>
-                        <div className="center">
-                    <Button className='btn cicle save' onClick={this.onSubmit}>&#10004;</Button>
-                    <Button className='btn cicle add' onClick={() => { this.addFields() }}>&#43;</Button>
-                    </div>
-                </Form>
+                <form >
+                    <Grid container alignItems="colum">
+                        <Grid item xs={12} spacing={24}>
+                            {
+                                this.state.data.map((vinculos, count) => (
+                                    <VinculoField
+                                        vincId={this.key}
+                                        vinc={vinculos}
+                                        count={count}
+                                        onRemove={this.onRemove}
+                                        onDataChange={this.updateList}
+                                    />
+                                ))
+                            }
+                        </Grid>
+                        <Grid item xs={12} spacing={24}>
+                            <Grid container direction="row" justify="center">
+                                <Grid item xs={1} spacing={24}>
+                                    <IconButton variant="fab" color="primary" aria-label="Add" onClick={this.onSubmit}>
+                                        <DoneIcon fontSize="large" />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item xs={1} spacing={24}>
+                                    <IconButton variant="fab" color="primary" aria-label="Add" onClick={this.addFields}>
+                                        <AddIcon fontSize="large" />
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </form>
             </div>
         );
     }
