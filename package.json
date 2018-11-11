@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@material-ui/core": "latest",
+    "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "gh-pages": "^2.0.1",
     "moment": "^2.22.2",
@@ -23,7 +24,7 @@
     "build": "react-scripts build && npm run deploy",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"   
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
