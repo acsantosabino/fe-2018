@@ -11,12 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import React from 'react';
 import axios from 'axios'
+import withRoot from '../withRoot';
 
 import Nomes from '../nomes/nomes';
 import Identificador from '../identificador/Identificador';
-import withRoot from '../withRoot';
-
-
 import Endereco from '../endereco/endereco'
 import ComunicacoesEletronica from "../comunicacoes/ComunicacoesEletronica";
 import Vinculos from '../vinculos/Vinculos';
@@ -76,11 +74,11 @@ function getStepContent(step, id) {
     case 2:
       return <DadosDemograficos />;
     case 3:
-        return <Endereco />;
+      return <Endereco data={id.enderecos} />;
     case 4:
-        return <ComunicacoesEletronica data={id.comunicacoesEletronica}/>;
+      return <ComunicacoesEletronica data={id.comunicacoesEletronica} />;
     case 5:
-    return <Vinculos data={id.vinculos}/>;
+      return <Vinculos data={id.vinculos} />;
     default:
       throw new Error("Unknown step");
   }
@@ -94,14 +92,13 @@ class Inicio extends React.Component {
         identificadores: [],
         nomes: [],
         dadosDemograficos: [],
-        enderecos: [],
+        enderecos: '',
         comunicacoesEletronica: [],
         vinculos: []
       },
       activeStep: 0,
-      url : "../data/modeloDeDados.json"
     };
-    this.url= "../data/modeloDeDados.json";
+    this.url = "../data/modeloDeDados.json";
     this.loadCommentsFromServer();
   }
 
@@ -135,8 +132,8 @@ class Inicio extends React.Component {
           // parse the sessionStorage string and setState
           try {
             value = JSON.parse(value);
-            id[key]= value;
-            this.setState({'id':id});
+            id[key] = value;
+            this.setState({ 'id': id });
           } catch (e) {
             sessionStorage.setItem(key, JSON.stringify(response.data[key]));
           }
@@ -170,7 +167,7 @@ class Inicio extends React.Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
-             Cadastro do Indivíduo
+              Cadastro de paciente
             </Typography>
               <Stepper nonLinear className={classes.stepper} activeStep={activeStep}>
               {steps.map((label, index) => {

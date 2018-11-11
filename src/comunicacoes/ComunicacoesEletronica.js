@@ -148,7 +148,7 @@ class ComunicacoesEletronica extends React.Component {
         this.onRemove = this.onRemove.bind(this);
         this.updateList = this.updateList.bind(this);
     }
-    componentWillReceiveProps() {
+    componentDidMount() {
         console.log(JSON.parse(sessionStorage.getItem(this.key)));
         if (sessionStorage.hasOwnProperty(this.key)) {
             // get the key's value from sessionStorage
@@ -164,11 +164,8 @@ class ComunicacoesEletronica extends React.Component {
         }
         else {
             this.setState({ data: this.props.data });
-            sessionStorage.setItem(this.key, JSON.stringify(this.props.data[this.key]));
+            sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
         }
-    }
-    componentDidMount(){
-        this.componentWillReceiveProps();
     }
     addFields() {
         this.setState({ data: this.state.data.concat([this.skull]) });

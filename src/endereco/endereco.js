@@ -1,73 +1,115 @@
-import React, {Component} from 'react'
-import {RadioGroup, Radio, Grid, FormControl, FormControlLabel, InputLabel, Select, MenuItem, TextField} from '@material-ui/core'
-import DatePicker from "react-datepicker";
-import moment from "moment";
+import React from 'react'
+import { RadioGroup, Radio, Grid, FormControl, FormControlLabel, InputLabel, Select, MenuItem, TextField } from '@material-ui/core'
 import If from './if'
-import {localidades, tiposEnderecoValue} from "./localidades";
-import "react-datepicker/dist/react-datepicker.css";
+import { localidades, tiposEnderecoValue } from "./localidades";
+// import "react-datepicker/dist/react-datepicker.css";
 
-export default class Endereco extends Component {
+const replaceStr = function (str, pos, value) {
+    var arr = str.split('');
+    console.log('b:' + arr)
+    arr[pos] = value;
+    console.log('a:' + arr)
+    return arr.join('');
+}
 
-
-
+export default class Endereco extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataInicial: moment(),
+            dataInicial: '',
             indicadorDeAcuraciaInicial: '',
-            dataFinal: moment(),
-            indicadorDeAcuraciaFinal: '',
+            dataFinal: '',
+            indicadorAcuraciaDataInicial: "AAA",
+            indicadorAcuraciaDataFinal: "AAA",
             tipoEndereco: 'Residencial',
             continente: 'America do Sul',
             pais: 'Brasil',
             paisRadio: 'Brasil',
             estado: 'Goiás',
-            cidade: 'Goiânia',
+            municipio: 'Goiânia',
             caixaPostal: '',
             cep: '',
             bairro: '',
             distrito: '',
             endereco: '',
         };
-
+        this.key = 'enderecos';
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeAccDia = this.handleChangeAccDia.bind(this);
+        this.handleChangeAccMes = this.handleChangeAccMes.bind(this);
+        this.handleChangeAccAno = this.handleChangeAccAno.bind(this);
         this.handleChangeDataInicial = this.handleChangeDataInicial.bind(this);
         this.handleChangeDataFinal = this.handleChangeDataFinal.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.handleChangeTextField = this.handleChangeTextField.bind(this);
         this.updateSessionStorage = this.updateSessionStorage.bind(this);
 
     }
+    componentDidMount() {
+        console.log(JSON.parse(sessionStorage.getItem(this.key)));
+        if (sessionStorage.hasOwnProperty(this.key)) {
+            // get the key's value from sessionStorage
+            let value = sessionStorage.getItem(this.key);
+            // parse the sessionStorage string and setState
+            try {
+                value = JSON.parse(value);
+                this.setState(value);
+            } catch (e) {
+                // handle empty string
+                this.setState(this.props.data);
+            }
+        }
+        else {
+            this.setState({ data: this.props.data });
+            sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
+        }
+    }
 
-    updateSessionStorage(){
-        sessionStorage.setItem('endereco',JSON.stringify(this.state))
+    updateSessionStorage() {
+        sessionStorage.setItem(this.key, JSON.stringify(this.state))
     }
 
     handleChange = event => {
-        let clone = Object.assign({},this.state)
+        let clone = Object.assign({}, this.state)
         clone[event.target.name] = event.target.value
-        this.setState({[event.target.name]: clone[event.target.name]},()=> this.updateSessionStorage())
+        this.setState({ [event.target.name]: clone[event.target.name] }, () => this.updateSessionStorage())
+    };
+    handleChangeAccDia = event => {
+        let clone = Object.assign({}, this.state)
+        clone[event.target.name] = replaceStr(clone[event.target.name], 0, event.target.value);
+        this.setState({ [event.target.name]: clone[event.target.name] }, () => this.updateSessionStorage())
+    };
+    handleChangeAccMes = event => {
+        let clone = Object.assign({}, this.state)
+        clone[event.target.name] = replaceStr(clone[event.target.name], 1, event.target.value);
+        this.setState({ [event.target.name]: clone[event.target.name] }, () => this.updateSessionStorage())
+    };
+    handleChangeAccAno = event => {
+        let clone = Object.assign({}, this.state)
+        clone[event.target.name] = replaceStr(clone[event.target.name], 2, event.target.value);
+        this.setState({ [event.target.name]: clone[event.target.name] }, () => this.updateSessionStorage())
     };
 
     handleChangeDataInicial = event => {
-        let clone = Object.assign({},this.state)
+        let clone = Object.assign({}, this.state)
+        console.log(clone['dataInicial']);
         clone.dataInicial = event;
-        this.setState({dataInicial: event},()=> this.updateSessionStorage())
+        console.log(clone['dataInicial']);
+        this.setState({ dataInicial: event }, () => this.updateSessionStorage())
     };
 
     handleChangeDataFinal = event => {
-        let clone = Object.assign({},this.state)
+        let clone = Object.assign({}, this.state)
         clone.dataFinal = event;
-        this.setState({dataFinal: event},()=> this.updateSessionStorage())
+        this.setState({ dataFinal: event }, () => this.updateSessionStorage())
     };
 
     handleChangeTextField = name => event => {
-        let clone = Object.assign({},this.state)
+        let clone = Object.assign({}, this.state)
         clone[name] = event.target.value
-        this.setState({[name]: clone[name]},()=> this.updateSessionStorage())
+        this.setState({ [name]: clone[name] }, () => this.updateSessionStorage())
     };
 
-    render(){
+    render() {
         const tiposEndereco = tiposEnderecoValue.map(v => <MenuItem key={v} value={v} >{v}</MenuItem>)
         const continentes = <MenuItem value={'America do Sul'} >America do Sul</MenuItem>
         const paises = <MenuItem value={'Brasil'} >Brasil</MenuItem>
@@ -76,105 +118,120 @@ export default class Endereco extends Component {
         return (
             <React.Fragment>
                 <form>
-        <Grid container spacing={24}>
-            <Grid item xs={12} sm={6}>
+                    <Grid container spacing={24}>
+                        <Grid item xs={12} sm={6}>
 
-                <h3>Data Inicial</h3>
-                <DatePicker style={{minWidth: '100%'}}
-                    selected={this.state.dataInicial}
-                    onChange={this.handleChangeDataInicial}
-                />
+                            <TextField
+                                style={{ minWidth: '100%' }}
+                                name="dataInicial"
+                                label="Data de Inicial"
+                                type="date"
+                                value={this.state.dataInicial}
+                                onChange={this.handleChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
 
-                <h3> Indicador de acurácia </h3>
+                            <h3> Indicador de acurácia </h3>
 
-                <RadioGroup name="indicadorDeAcuraciaInicial" value={this.state.indicadorDeAcuraciaInicial} onChange={this.handleChange} style={{minWidth: '100%'}}>
+                            <RadioGroup name="indicadorAcuraciaDataInicial" value={this.state.indicadorAcuraciaDataInicial[0]} onChange={this.handleChangeAccDia} style={{ minWidth: '100%' }}>
+                                <h5>Dia:</h5>
+                                <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
+                                <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
+                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                            </RadioGroup>
 
-                    <h5>Dia:</h5>
-                        <FormControlLabel value="acuradoDia" control={<Radio color="primary" />} label="Acurado" />
-                        <FormControlLabel value="estimadoDia" control={<Radio color="primary" />} label="Estimado" />
-                        <FormControlLabel value="desconhecidoDia" control={<Radio color="primary" />} label="Desconhecido" />
+                            <RadioGroup name="indicadorAcuraciaDataInicial" value={this.state.indicadorAcuraciaDataInicial[1]} onChange={this.handleChangeAccMes} style={{ minWidth: '100%' }}>
+                                <h5>Mes:</h5>
+                                <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
+                                <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
+                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                            </RadioGroup>
 
+                            <RadioGroup name="indicadorAcuraciaDataInicial" value={this.state.indicadorAcuraciaDataInicial[2]} onChange={this.handleChangeAccAno} style={{ minWidth: '100%' }}>
+                                <h5>Ano:</h5>
+                                <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
+                                <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
+                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
 
-                    <h5>Mes:</h5>
-                        <FormControlLabel value="acuradoMes" control={<Radio color="primary" />} label="Acurado" />
-                        <FormControlLabel value="estimadoMes" control={<Radio color="primary" />} label="Estimado" />
-                        <FormControlLabel value="desconhecidoMes" control={<Radio color="primary" />} label="Desconhecido" />
+                            </RadioGroup>
 
+                        </Grid>
 
-                   <h5>Ano:</h5>
-                        <FormControlLabel value="acuradoAno" control={<Radio color="primary" />} label="Acurado" />
-                        <FormControlLabel value="estimadoAno" control={<Radio color="primary" />} label="Estimado" />
-                        <FormControlLabel value="desconhecidoAno" control={<Radio color="primary" />} label="Desconhecido" />
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                style={{ minWidth: '100%' }}
+                                name="dataFinal"
+                                label="Data de Inicial"
+                                type="date"
+                                value={this.state.dataFinal}
+                                onChange={this.handleChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
 
-                </RadioGroup>
+                            <h3> Indicador de acurácia </h3>
 
-            </Grid>
+                            <RadioGroup name="indicadorAcuraciaDataFinal" value={this.state.indicadorAcuraciaDataFinal[0]} onChange={this.handleChangeAccDia} style={{ minWidth: '100%' }}>
+                                <h5>Dia:</h5>
+                                <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
+                                <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
+                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                            </RadioGroup>
 
-            <Grid item xs={12} sm={6}>
-                <h3>Data Final</h3>
-                <DatePicker style={{minWidth: '100%'}}
-                    selected={this.state.dataFinal}
-                    onChange={this.handleChangeDataFinal}
-                />
+                            <RadioGroup name="indicadorAcuraciaDataFinal" value={this.state.indicadorAcuraciaDataFinal[1]} onChange={this.handleChangeAccMes} style={{ minWidth: '100%' }}>
+                                <h5>Mes:</h5>
+                                <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
+                                <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
+                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                            </RadioGroup>
 
-                <h3> Indicador de acurácia </h3>
+                            <RadioGroup name="indicadorAcuraciaDataFinal" value={this.state.indicadorAcuraciaDataFinal[2]} onChange={this.handleChangeAccAno} style={{ minWidth: '100%' }}>
+                                <h5>Ano:</h5>
+                                <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
+                                <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
+                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                            </RadioGroup>
+                        </Grid>
 
-                <RadioGroup name="indicadorDeAcuraciaFinal" value={this.state.indicadorDeAcuraciaFinal} onChange={this.handleChange} style={{minWidth: '100%'}}>
-                    <h5>Dia:</h5>
-                    <FormControlLabel value="acuradoDia" control={<Radio color="primary" />} label="Acurado" />
-                    <FormControlLabel value="estimadoDia" control={<Radio color="primary" />} label="Estimado" />
-                    <FormControlLabel value="desconhecidoDia" control={<Radio color="primary" />} label="Desconhecido" />
+                    </Grid>
 
+                    <Grid container>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl style={{ minWidth: '100%' }}>
+                                <InputLabel htmlFor={'tipoEndereco'} > Tipo Endereco </InputLabel>
+                                <Select value={this.state.tipoEndereco} onChange={this.handleChange} inputProps={{ name: 'tipoEndereco', id: 'tipoEndereco' }}>
+                                    {tiposEndereco}
+                                </Select>
+                            </FormControl>
+                        </Grid>
 
-                    <h5>Mes:</h5>
-                    <FormControlLabel value="acuradoMes" control={<Radio color="primary" />} label="Acurado" />
-                    <FormControlLabel value="estimadoMes" control={<Radio color="primary" />} label="Estimado" />
-                    <FormControlLabel value="desconhecidoMes" control={<Radio color="primary" />} label="Desconhecido" />
+                        <RadioGroup name="paisRadio" value={this.state.paisRadio} onChange={this.handleChange} style={{ minWidth: '100%' }}>
+                            <h5>Pais:</h5>
+                            <FormControlLabel value="Brasil" control={<Radio color="primary" />} label="Brasil" />
+                            <FormControlLabel value="Outro" control={<Radio color="primary" />} label="Outro" />
+                        </RadioGroup>
 
-
-                    <h5>Ano:</h5>
-                    <FormControlLabel value="acuradoAno" control={<Radio color="primary" />} label="Acurado" />
-                    <FormControlLabel value="estimadoAno" control={<Radio color="primary" />} label="Estimado" />
-                    <FormControlLabel value="desconhecidoAno" control={<Radio color="primary" />} label="Desconhecido" />
-                </RadioGroup>
-            </Grid>
-
-        </Grid>
-
-                <Grid container>
-                    <Grid item xs={12} sm={6}>
-                        <FormControl style={{minWidth: '100%'}}>
-                        <InputLabel htmlFor={'tipoEndereco'} > Tipo Endereco </InputLabel>
-                        <Select value={this.state.tipoEndereco} onChange={this.handleChange} inputProps={{name: 'tipoEndereco', id:'tipoEndereco'}}>
-                            {tiposEndereco}
-                        </Select>
-                    </FormControl>
-                </Grid>
-
-                    <RadioGroup name="paisRadio" value={this.state.paisRadio} onChange={this.handleChange} style={{minWidth: '100%'}}>
-                        <h5>Pais:</h5>
-                        <FormControlLabel value="Brasil" control={<Radio color="primary" />} label="Brasil" />
-                        <FormControlLabel value="Outro" control={<Radio color="primary" />} label="Outro" />
-                    </RadioGroup>
-
-                </Grid>
+                    </Grid>
 
                     <If test={this.state.paisRadio !== 'Brasil'} >
                         <Grid container spacing={24}>
 
                             <Grid item xs={12} sm={6}>
-                                <FormControl style={{minWidth: '100%'}}>
+                                <FormControl style={{ minWidth: '100%' }}>
                                     <InputLabel htmlFor={'continente'} > Continente</InputLabel>
-                                    <Select value={this.state.continente} onChange={this.handleChange} inputProps={{name: 'continente', id:'continente'}}>
+                                    <Select value={this.state.continente} onChange={this.handleChange} inputProps={{ name: 'continente', id: 'continente' }}>
                                         {continentes}
                                     </Select>
                                 </FormControl>
                             </Grid>
 
                             <Grid item xs={12} sm={6}>
-                                <FormControl style={{minWidth: '100%'}}>
+                                <FormControl style={{ minWidth: '100%' }}>
                                     <InputLabel htmlFor={'pais'} > Pais</InputLabel>
-                                    <Select value={this.state.pais} onChange={this.handleChange} inputProps={{name: 'pais', id:'pais'}}>
+                                    <Select value={this.state.pais} onChange={this.handleChange} inputProps={{ name: 'pais', id: 'pais' }}>
                                         {paises}
                                     </Select>
                                 </FormControl>
@@ -184,73 +241,73 @@ export default class Endereco extends Component {
                     </If>
 
                     <Grid container spacing={24}>
-                    <Grid item xs={12} sm={6}>
-                        <FormControl style={{minWidth: '100%'}}>
-                            <InputLabel htmlFor={'estado'}> Estado</InputLabel>
-                            <Select value={this.state.estado} onChange={this.handleChange} inputProps={{name: 'estado', id:'estado'}}>
-                                {estados}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-
-                    <Grid item xs={12} sm={6}>
-                        <FormControl style={{minWidth: '100%'}}>
-                            <InputLabel htmlFor={'cidade'}> Cidade</InputLabel>
-                            <Select value={this.state.cidade} onChange={this.handleChange} inputProps={{name: 'cidade', id:'cidade'}}>
-                                {cidades}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-
-                    <Grid item xs={12} sm={6}>
-                    <TextField
-                        id="caixaPostal"
-                        label="Caixa Postal"
-                        value={this.state.caixaPostal}
-                        onChange={this.handleChangeTextField('caixaPostal')}
-                        margin="normal"
-                        style={{minWidth: '100%'}}
-                    />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <TextField
-                        id="Cep"
-                        label="Cep"
-                        value={this.state.Cep}
-                        onChange={this.handleChangeTextField('Cep')}
-                        margin="normal"
-                        style={{minWidth: '100%'}}
-                    />
-                    </Grid>
                         <Grid item xs={12} sm={6}>
-                    <TextField
-                        id="Bairro"
-                        label="Bairro"
-                        value={this.state.Bairro}
-                        onChange={this.handleChangeTextField('Bairro')}
-                        margin="normal"
-                        style={{minWidth: '100%'}}
-                    />
+                            <FormControl style={{ minWidth: '100%' }}>
+                                <InputLabel htmlFor={'estado'}> Estado</InputLabel>
+                                <Select value={this.state.estado} onChange={this.handleChange} inputProps={{ name: 'estado', id: 'estado' }}>
+                                    {estados}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={12} sm={6}>
+                            <FormControl style={{ minWidth: '100%' }}>
+                                <InputLabel htmlFor={'municipio'}>Municipio</InputLabel>
+                                <Select value={this.state.municipio} onChange={this.handleChange} inputProps={{ name: 'cidade', id: 'cidade' }}>
+                                    {cidades}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="caixaPostal"
+                                label="Caixa Postal"
+                                value={this.state.caixaPostal}
+                                onChange={this.handleChangeTextField('caixaPostal')}
+                                margin="normal"
+                                style={{ minWidth: '100%' }}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                    <TextField
-                        id="Distrito"
-                        label="Distrito"
-                        value={this.state.Distrito}
-                        onChange={this.handleChangeTextField('Distrito')}
-                        margin="normal"
-                        style={{minWidth: '100%'}}
-                    />
+                            <TextField
+                                id="Cep"
+                                label="Cep"
+                                value={this.state.cep}
+                                onChange={this.handleChangeTextField('cep')}
+                                margin="normal"
+                                style={{ minWidth: '100%' }}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                    <TextField
-                        id="Endereco"
-                        label="Endereco"
-                        value={this.state.Endereco}
-                        onChange={this.handleChangeTextField('Endereco')}
-                        margin="normal"
-                        style={{minWidth: '100%'}}
-                    />
+                            <TextField
+                                id="Bairro"
+                                label="Bairro"
+                                value={this.state.bairro}
+                                onChange={this.handleChangeTextField('bairro')}
+                                margin="normal"
+                                style={{ minWidth: '100%' }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="Distrito"
+                                label="Distrito"
+                                value={this.state.distrito}
+                                onChange={this.handleChangeTextField('distrito')}
+                                margin="normal"
+                                style={{ minWidth: '100%' }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="Endereco"
+                                label="Endereco"
+                                value={this.state.endereco}
+                                onChange={this.handleChangeTextField('endereco')}
+                                margin="normal"
+                                style={{ minWidth: '100%' }}
+                            />
                         </Grid>
                     </Grid>
 
@@ -258,5 +315,5 @@ export default class Endereco extends Component {
             </React.Fragment>
         )
 
+    }
 }
-        }

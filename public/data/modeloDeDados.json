@@ -73,36 +73,24 @@
     ,"ordemDeNascimento":0
     ,"comentario":""
   }
-  ,"enderecos":[
+  ,"enderecos":
     {
-      "linhaEndereco":{
-        "tipoSubUnidadeComplexo":"APT"
-        ,"numeroSubunidade":7
-        ,"nomeEdificio":"Edificio Goiania Mais"
-        ,"numeroAndar":3
-        ,"tipoAndar":"TERREO"
-        ,"complemento":""
-        ,"numeroPropriedade":""
-        ,"numeroSecaoDoLote":""
-        ,"nomeLogradouro":""
-        ,"codigoTipoLogradouro":""
-        ,"codigoSufixoLogradouro":"N(Norte)"
-        ,"setorCensitario":""
-      }
+      "endereco": "Edificio Goiania Mais"
+      ,"pais": "Brasil"
+      ,"paisRadio": "Brasil"
       ,"bairro":"SETOR CENTRAL"
-      ,"municipio":"GOIANIA"
+      ,"municipio":"Goiânia"
       ,"codigoMunicipio":1
-      ,"estado":"GO"
-      ,"codigoPostal":""
+      ,"estado":"Goiás"
+      ,"cep":""
       ,"caixaPostal":""
       ,"identificadorPais":1
-      ,"tipoEndereco":1
-      ,"dataInicial":""
+      ,"tipoEndereco":"Residencial"
+      ,"dataInicial":"2018-11-02"
       ,"indicadorAcuraciaDataInicial":"AAA"
-      ,"dataFinal":""
+      ,"dataFinal":"2018-11-02"
       ,"indicadorAcuraciaDataFinal":"AAA"
     }
-  ]
   ,"comunicacoesEletronica":[
     {
       "meioDeComunicacao":1

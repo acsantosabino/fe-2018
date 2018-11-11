@@ -66,7 +66,7 @@ class VinculoField extends React.Component {
                     alignItems="center">
                     <Grid item xs={12} sm={11}>
                         <Grid container spacing={6}>
-                            <Grid item xs={12} sm={5}>
+                            <Grid item xs={12} sm={4}>
                                 <TextField
                                     label='Identificador do Vinculo'
                                     type="text"
@@ -78,7 +78,7 @@ class VinculoField extends React.Component {
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={3}>
+                            <Grid item xs={12} sm={2}>
                                 <FormControl>
                                     <InputLabel>Relacionamento</InputLabel><br />
                                     <Select
@@ -109,7 +109,7 @@ class VinculoField extends React.Component {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} sm={2}>
+                            <Grid item xs={12} sm={3}>
                                 <TextField
                                     id="dataInicialVinculo"
                                     label="Data de Início"
@@ -121,7 +121,7 @@ class VinculoField extends React.Component {
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={2}>
+                            <Grid item xs={12} sm={3}>
                                 <TextField
                                     id="dataFinalVinculo"
                                     label="Data de Fim"
@@ -163,7 +163,7 @@ class Vinculos extends React.Component {
         this.onRemove = this.onRemove.bind(this);
         this.updateList = this.updateList.bind(this);
     }
-    componentWillReceiveProps() {
+    componentDidMount() {
         console.log(JSON.parse(sessionStorage.getItem(this.key)));
         if (sessionStorage.hasOwnProperty(this.key)) {
             // get the key's value from sessionStorage
@@ -179,11 +179,8 @@ class Vinculos extends React.Component {
         }
         else {
             this.setState({ data: this.props.data });
-            sessionStorage.setItem(this.key, JSON.stringify(this.props.data[this.key]));
+            sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
         }
-    }
-    componentDidMount(){
-        this.componentWillReceiveProps();
     }
     addFields() {
         this.setState({ data: this.state.data.concat([this.skull]) });
