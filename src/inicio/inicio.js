@@ -16,8 +16,9 @@ import Nomes from '../nomes/nomes';
 import Identificador from '../identificador/Identificador';
 import withRoot from '../withRoot';
 
-/* 
-import Endereco from './endereco/endereco.jsx'
+
+import Endereco from '../endereco/endereco'
+/*
 import ComunicacoesEletronica from "./comunicacoes/ComunicacoesEletronica";
 import Vinculos from './vinculos/Vinculos'; */
 const styles = theme => ({
@@ -75,9 +76,9 @@ function getStepContent(step) {
     case 2:
       return <Nomes />;
     case 3:
-      return <Nomes />;
+        return <Endereco />;
     case 4:
-      return <Nomes />;
+        return <Nomes />;
     case 5:
       return <Nomes />;
     default:

@@ -17,7 +17,8 @@
     "react": "latest",
     "react-date-picker": "^7.0.0",
     "react-dom": "latest",
-    "react-scripts": "latest"
+    "react-scripts": "latest",
+    "react-datepicker": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
