@@ -46,8 +46,12 @@ export default class Nomes extends React.Component {
 
   addNome() {
 
-    if(this.state.nome == null || this.state.nome == '') {
-      return alert("O campo 'nome' está vazio");
+    if(this.state.sobrenome == null || this.state.sobrenome == '') {
+      return alert("O campo 'sobrenome' está vazio");
+    }
+
+    if(this.state.nomes.length == 9) {
+      return alert("Quantidade máxima de nomes excedida");
     }
 
     let id = new Date().getTime();
@@ -97,6 +101,10 @@ export default class Nomes extends React.Component {
   }
 
   updateNome() {
+    if(this.state.sobrenome == null || this.state.sobrenome == '') {
+      return alert("O campo 'sobrenome' está vazio");
+    }
+
     this.state.nomes[this.state.nomes.findIndex(nome => nome.id === this.state.id)] = {
       id: this.state.id,
       nome: this.state.nome,
@@ -130,7 +138,6 @@ export default class Nomes extends React.Component {
         <Grid container spacing={24}>
           <Grid item xs={12} sm={6}>
             <TextField
-              required
               id="nome"
               name="nome"
               label="Nome"
@@ -152,8 +159,7 @@ export default class Nomes extends React.Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              required
-              id="titulo"
+               id="titulo"
               name="titulo"
               label="Título"
               value={this.state.titulo}
