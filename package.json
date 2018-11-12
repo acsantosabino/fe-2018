@@ -23,7 +23,7 @@
     "build": "react-scripts build && npm run deploy",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"   
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
