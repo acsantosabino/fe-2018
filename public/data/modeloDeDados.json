@@ -6,6 +6,15 @@
     ,"emissor":"HOSPITAL"
     ,"dataEmissao":"1990-06-23"
     ,"tipoDocumento":"0"
+    ,"nomeCartorio":""
+    ,"tipoCertidao":0
+    ,"livro":0
+    ,"folha":0
+    ,"termo":0
+    ,"serie":0
+    ,"estado":""
+    ,"secao":0
+    ,"zona":0
     },
     {
     "designacao":"CER0123"
@@ -14,9 +23,14 @@
     ,"dataEmissao":"1990-06-23"
     ,"tipoDocumento":"1"
     ,"nomeCartorio":"CARTORIO A"
+    ,"tipoCertidao":2
     ,"livro":10
     ,"folha":200
     ,"termo":10
+    ,"serie":0
+    ,"estado":""
+    ,"secao":0
+    ,"zona":0
     }
     ,{
     "designacao":"CTR0123"
@@ -26,6 +40,13 @@
     ,"tipoDocumento":"2"
     ,"serie":12
     ,"estado":"GO"
+    ,"nomeCartorio":""
+    ,"tipoCertidao":0
+    ,"livro":0
+    ,"folha":0
+    ,"termo":0
+    ,"secao":0
+    ,"zona":0
     }
     ,{
     "designacao":"TIT0123"
@@ -35,6 +56,13 @@
     ,"tipoDocumento":"3"
     ,"secao":23
     ,"zona":543
+    ,"nomeCartorio":""
+    ,"tipoCertidao":0
+    ,"livro":0
+    ,"folha":0
+    ,"termo":0
+    ,"serie":0
+    ,"estado":""
     }
   ]
   ,"nomes":[

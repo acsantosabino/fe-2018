@@ -3,6 +3,12 @@ import TextField from '@material-ui/core/TextField';
 //import { FormControl } from 'react-bootstrap';
 //import { FormControl } from "@material-ui/core/FormControl";
 
+class DadoIdentificador {
+    constructor(identificador) {
+
+    }
+}
+
 class Identificador extends Component {
     constructor(props) {
         super(props);
@@ -21,13 +27,6 @@ class Identificador extends Component {
         this.onAtualizaIdentificacao = this.onAtualizaIdentificacao.bind(this)
         this.onRemoverIdentificacao = this.onRemoverIdentificacao.bind(this)
         this.onAdicionarIdentificacao = this.onAdicionarIdentificacao.bind(this)
-        this.onMudancaTipoDeDocumento = this.onMudancaTipoDeDocumento.bind(this)
-    }
-
-    onMudancaTipoDeDocumento(indice, tipo){
-        var lista = this.state.data;
-        var obj = lista[indice]
-        
     }
 
     onAtualizaIdentificacao(indice, novoObj) {
@@ -35,6 +34,8 @@ class Identificador extends Component {
         lista[indice] = novoObj;
         this.setState({ data: lista })
         sessionStorage.setItem('identificadores', JSON.stringify(this.state.data));
+
+        console.log("DADOS: .... " + JSON.stringify(this.state.data))
     }
 
     onRemoverIdentificacao(indice) {
@@ -48,9 +49,9 @@ class Identificador extends Component {
     onAdicionarIdentificacao(e) {
         e.preventDefault()
         var d = new Date()
-        var dataString = d.getFullYear() + 
-                            "-" + (d.getMonth() + 1) + 
-                            "-" + d.getDate();
+        var dataString = d.getFullYear() +
+            "-" + (d.getMonth() + 1) +
+            "-" + d.getDate();
         var identificador = {
             designacao: ""
             , areaGeografica: 1
@@ -94,6 +95,8 @@ class Identificador extends Component {
                         })
                     }
 
+                    <p/>
+                    <hr/>
                     <button onClick={this.onAdicionarIdentificacao}>
                         ADICIONAR [ + ]
                     </button>
@@ -113,6 +116,19 @@ class LinhaIdentificacao extends Component {
         this.onDataEmissaoChange = this.onDataEmissaoChange.bind(this)
         this.onDesignacaoChange = this.onDesignacaoChange.bind(this)
         this.onRemoverClick = this.onRemoverClick.bind(this)
+        this.onAtualizarDadosTipoEspecificoDocumento =
+            this.onAtualizarDadosTipoEspecificoDocumento.bind(this)
+    }
+
+    onAtualizarDadosTipoEspecificoDocumento(novoObjeto) {
+        this.props.atualizarIdentificacao(this.props.indice, novoObjeto)
+    }
+
+    onTipoDocumentoChange(e) {
+        var value = e.target.value
+        var obj = this.props.identificacao
+        obj.tipoDocumento = value
+        this.props.atualizarIdentificacao(this.props.indice, obj)
     }
 
     onAreaGeograficaChange(e) {
@@ -223,14 +239,20 @@ class LinhaIdentificacao extends Component {
                         onChange={this.onDesignacaoChange}
                     />
                 </div>
+                <Certidao data={identificacao}
+                    indice={indice}
+                    atualizar={this.onAtualizarDadosTipoEspecificoDocumento} />
+                <CarteiraTrabalho data={identificacao}
+                    indice={indice}
+                    atualizar={this.onAtualizarDadosTipoEspecificoDocumento} />
+                <TituloEleitor data={identificacao}
+                    indice={indice}
+                    atualizar={this.onAtualizarDadosTipoEspecificoDocumento} />
                 <div>
                     <button onClick={this.onRemoverClick}>
                         Remover [ X ]
                     </button>
                 </div>
-                {/* <Certidao data={identificacao} indice={indice} /> */}
-                {/* <CarteiraTrabalho data={identificacao} indice={indice} /> */}
-                {/* <TituloEleitor data={identificacao} indice={indice} /> */}
             </div>
         )
     }
@@ -238,7 +260,47 @@ class LinhaIdentificacao extends Component {
 }
 
 class Certidao extends Component {
+    constructor(props) {
+        super(props);
+        this.onTipoCertificadoChange = this.onTipoCertificadoChange.bind(this)
+        this.onNomeCartorioChange = this.onNomeCartorioChange.bind(this)
+        this.onLivroChange = this.onLivroChange.bind(this)
+        this.onFolhaChange = this.onFolhaChange.bind(this)
+        this.onTermoChange = this.onTermoChange.bind(this)
+    }
+
+    onTipoCertificadoChange(e) {
+        var value = e.target.value
+        this.props.data.tipoCertidao = value;
+        this.props.atualizar(this.props.data)
+    }
+
+    onNomeCartorioChange(e) {
+        var value = e.target.value
+        this.props.data.nomeCartorio = value;
+        this.props.atualizar(this.props.data)
+    }
+
+    onLivroChange(e) {
+        var value = e.target.value
+        this.props.data.livro = value;
+        this.props.atualizar(this.props.data)
+    }
+
+    onFolhaChange(e) {
+        var value = e.target.value
+        this.props.data.folha = value;
+        this.props.atualizar(this.props.data)
+    }
+
+    onTermoChange(e) {
+        var value = e.target.value
+        this.props.data.termo = value;
+        this.props.atualizar(this.props.data)
+    }
+
     render() {
+        console.log(JSON.stringify(this.props))
 
         var identificao = this.props.data;
         var indice = this.props.indice;
@@ -249,27 +311,35 @@ class Certidao extends Component {
                     <h3>Certidão </h3>
                     <div>
                         <label for="tipoCertidao">Tipo de Certidão</label>
-                        <select id="tipoCertidao" name="tipoCertidao">
-                            <option value="1">Nascimento</option>
-                            <option value="2">Casamento</option>
-                            <option value="3">Divórcio</option>
+                        <select id="tipoCertidao"
+                            value={identificao.tipoCertidao}
+                            name="tipoCertidao"
+                            onChange={this.onTipoCertificadoChange}>
+                            <option value="0">Nascimento</option>
+                            <option value="1">Casamento</option>
+                            <option value="2">Divórcio</option>
                         </select>
                     </div>
                     <div>
                         <label for="nomeCartorio">Nome do cartório</label>
-                        <input type="text" id="nomeCartorio" name="nomeCartorio" />
+                        <input type="text" id="nomeCartorio" name="nomeCartorio"
+                            value={identificao.nomeCartorio}
+                            onChange={this.onNomeCartorioChange} />
                     </div>
                     <div>
                         <label for="livro">Livro</label>
-                        <input type="number" id="livro" name="livro" min="0" />
+                        <input type="number" id="livro" name="livro" min="0" value={identificao.livro}
+                            onChange={this.onLivroChange}></input>/>
                     </div>
                     <div>
                         <label for="folha">Folha</label>
-                        <input type="number" id="folha" name="folha" min="0" />
+                        <input type="number" id="folha" name="folha" min="0" value={identificao.folha}
+                            onChange={this.onFolhaChange}></input>/>
                     </div>
                     <div>
                         <label for="termo">Termo</label>
-                        <input type="number" id="termo" name="termo" min="0" />
+                        <input type="number" id="termo" name="termo" min="0" value={identificao.termo}
+                            onChange={this.onTermoChange} />
                     </div>
                 </div>
             )
@@ -278,6 +348,22 @@ class Certidao extends Component {
 }
 
 class CarteiraTrabalho extends Component {
+    constructor(props) {
+        super(props)
+        this.onSerieChange = this.onSerieChange.bind(this)
+        this.onEstadoChange = this.onEstadoChange.bind(this)
+    }
+
+    onSerieChange(e) {
+        this.props.data.serie = e.target.value;
+        this.props.atualizar(this.props.data)
+    }
+
+    onEstadoChange(e) {
+        this.props.data.estado = e.target.value;
+        this.props.atualizar(this.props.data)
+    }
+
     render() {
         var identificao = this.props.data;
         var tipoDocumento = identificao.tipoDocumento;
@@ -287,11 +373,14 @@ class CarteiraTrabalho extends Component {
                     <h3>Carteira de Trabalho e Previdência Social (CTPS)</h3>
                     <div>
                         <label for="serie">Série</label>
-                        <input type="number" id="serie" name="serie" min="0" />
+                        <input type="number" id="serie" name="serie" min="0"
+                            value={this.props.data.serie}
+                            onChange={this.onSerieChange} />
                     </div>
                     <div>
                         <label for="estado">Estado</label>
-                        <select name="estado">
+                        <select name="estado" value={this.props.data.estado}
+                            onChange={this.onEstadoChange}>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AP">Amapá</option>
@@ -329,6 +418,23 @@ class CarteiraTrabalho extends Component {
 
 
 class TituloEleitor extends Component {
+
+    constructor(props){
+        super(props)
+        this.onSecaoChange = this.onSecaoChange.bind(this)
+        this.onZonaChange = this.onZonaChange.bind(this)
+    }
+
+    onSecaoChange(e) {
+        this.props.data.secao = e.target.value;
+        this.props.atualizar(this.props.data)
+    }
+
+    onZonaChange(e){
+        this.props.data.zona = e.target.value;
+        this.props.atualizar(this.props.data)
+    }
+
     render() {
         var identificao = this.props.data;
         var tipoDocumento = identificao.tipoDocumento;
@@ -338,11 +444,15 @@ class TituloEleitor extends Component {
                     <h3>Título de eleitor</h3>
                     <div>
                         <label for="secao">Seção</label>
-                        <input type="number" id="secao" name="secao" min="0" />
+                        <input type="number" id="secao" name="secao" min="0" 
+                            value={this.props.data.secao}
+                            onChange={this.onSecaoChange}/>
                     </div>
                     <div>
                         <label for="zona">Zona</label>
-                        <input type="number" id="zona" name="zona" min="0" />
+                        <input type="number" id="zona" name="zona" min="0" 
+                            value={this.props.data.zona}
+                            onChange={this.onZonaChange}/>
                     </div>
                 </div>
             )
