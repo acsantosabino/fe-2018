@@ -73,24 +73,36 @@
     ,"ordemDeNascimento":0
     ,"comentario":""
   }
-  ,"enderecos":
+  ,"enderecos":[
     {
-      "endereco": "Edificio Goiania Mais"
-      ,"pais": "Brasil"
-      ,"paisRadio": "Brasil"
+      "linhaEndereco":{
+        "tipoSubUnidadeComplexo":"APT"
+        ,"numeroSubunidade":7
+        ,"nomeEdificio":"Edificio Goiania Mais"
+        ,"numeroAndar":3
+        ,"tipoAndar":"TERREO"
+        ,"complemento":""
+        ,"numeroPropriedade":""
+        ,"numeroSecaoDoLote":""
+        ,"nomeLogradouro":""
+        ,"codigoTipoLogradouro":""
+        ,"codigoSufixoLogradouro":"N(Norte)"
+        ,"setorCensitario":""
+      }
       ,"bairro":"SETOR CENTRAL"
-      ,"municipio":"Goiânia"
+      ,"municipio":"GOIANIA"
       ,"codigoMunicipio":1
-      ,"estado":"Goiás"
-      ,"cep":""
+      ,"estado":"GO"
+      ,"codigoPostal":""
       ,"caixaPostal":""
       ,"identificadorPais":1
-      ,"tipoEndereco":"Residencial"
-      ,"dataInicial":"2018-11-02"
+      ,"tipoEndereco":1
+      ,"dataInicial":""
       ,"indicadorAcuraciaDataInicial":"AAA"
-      ,"dataFinal":"2018-11-02"
+      ,"dataFinal":""
       ,"indicadorAcuraciaDataFinal":"AAA"
     }
+  ]
   ,"comunicacoesEletronica":[
     {
       "meioDeComunicacao":1
@@ -107,12 +119,10 @@
   ]
   ,"vinculos":[
     {
-      "nome": ""
-      ,"tipoidentificadorVinculo": ""
-      ,"identificadorVinculo":""
+      "identificadorVinculo":"29183HUGO"
       ,"relacionamentoVinculo":254
-      ,"dataInicialVinculo":"2018-11-04"
-      ,"dataFinalVinculo":"2018-11-04"
+      ,"dataInicialVinculo":"2018-11-04T18:47:00.379Z"
+      ,"dataFinalVinculo":"2018-11-04T18:47:00.379Z"
     }
   ]
 }
