@@ -16,7 +16,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import Typography from "@material-ui/core/Typography";
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-
+import {localidades} from "../endereco/localidades.js";
 
 const styles = theme => ({
   container: {
@@ -74,6 +74,9 @@ class DadosDemograficos extends React.Component {
         selecione_nasc:'',
         selecione_ordem:'',
 
+        estado: 'Goiás',
+        cidade: 'Goiânia',
+
         editando: false,
         id: 0,
         nomeMae:"",
@@ -83,6 +86,7 @@ class DadosDemograficos extends React.Component {
         multiline: 'Controlled',
   };
   this.addDemografico = this.addDemografico.bind(this);
+  this.handleChange = this.handleChange.bind(this);
 
   }
 
@@ -127,6 +131,8 @@ class DadosDemograficos extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const estados = localidades.map(v => <MenuItem key={v.nome} value={v.nome} >{v.nome}</MenuItem>)
+    const cidades = localidades.filter(v => v.nome === this.state.estado).map(v => v.cidades.map(v => <MenuItem key={v} value={v} >{v}</MenuItem>))
 
     const { sit_1, sit_2, sit_3, sit_4, sit_5, sit_6, sit_seguimento, branca, preta, parda, amarela, indigena, masc, fem, inter, nao_dec } = this.state;
     const error =
@@ -777,7 +783,23 @@ class DadosDemograficos extends React.Component {
                   Nacionalidade
                   </Typography>
                 </FormLabel>
-              
+                <Grid item xs={6}>
+                        <FormControl style={{minWidth: '100%'}}>
+                            <InputLabel htmlFor={'estado'}> Estado</InputLabel>
+                            <Select value={this.state.estado} onChange={this.handleChange} inputProps={{name: 'estado', id:'estado'}}>
+                                {estados}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <FormControl style={{minWidth: '100%'}}>
+                            <InputLabel htmlFor={'cidade'}> Cidade</InputLabel>
+                            <Select value={this.state.cidade} onChange={this.handleChange} inputProps={{name: 'cidade', id:'cidade'}}>
+                                {cidades}
+                            </Select>
+                        </FormControl>
+                    </Grid>
             </Paper>
           </Grid>
           <Grid item xs={12}>
