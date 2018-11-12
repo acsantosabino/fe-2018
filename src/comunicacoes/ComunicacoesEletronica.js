@@ -149,7 +149,6 @@ class ComunicacoesEletronica extends React.Component {
         this.updateList = this.updateList.bind(this);
     }
     componentDidMount() {
-        console.log(JSON.parse(sessionStorage.getItem(this.key)));
         if (sessionStorage.hasOwnProperty(this.key)) {
             // get the key's value from sessionStorage
             let value = sessionStorage.getItem(this.key);
@@ -159,12 +158,12 @@ class ComunicacoesEletronica extends React.Component {
                 this.setState({ data: value });
             } catch (e) {
                 // handle empty string
-                this.setState({ data: this.props.data });
+                this.setState({ data: [this.skull] });
             }
         }
         else {
-            this.setState({ data: this.props.data });
-            sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
+            this.setState({ data: [this.skull] });
+            sessionStorage.setItem(this.key, JSON.stringify([this.skull]));
         }
     }
     addFields() {

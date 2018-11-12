@@ -15,6 +15,8 @@ class VinculoField extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            nome: '',
+            tipoidentificadorVinculo: '',
             identificadorVinculo: '',
             relacionamentoVinculo: 254,
             dataInicialVinculo: '',
@@ -29,9 +31,21 @@ class VinculoField extends React.Component {
     componentDidMount() {
         this.setState(this.props.vinc);
     };
+    handleNomeChange(e) {
+        console.log(e.target.value);
+        this.setState({ 'nome': e.target.value }, () => {
+            this.props.onDataChange(this.props.count, this.state);
+        });
+    };
     handleIdentificadorVinculoChange(e) {
         console.log(e.target.value);
         this.setState({ 'identificadorVinculo': e.target.value }, () => {
+            this.props.onDataChange(this.props.count, this.state);
+        });
+    };
+    handleTipoIdentificadorVinculoChange(e) {
+        console.log(e.target.value);
+        this.setState({ 'tipoidentificadorVinculo': e.target.value }, () => {
             this.props.onDataChange(this.props.count, this.state);
         });
     };
@@ -63,14 +77,40 @@ class VinculoField extends React.Component {
                     spacing={6}
                     direction="row"
                     justify="center"
-                    alignItems="center">
+                    alignItems="center"
+                >
                     <Grid item xs={12} sm={11}>
                         <Grid container spacing={6}>
-                            <Grid item xs={12} sm={4}>
+                            <Grid item xs={12} sm={12}>
+                                <TextField
+                                    label='Nome do Vinculado'
+                                    type="text"
+                                    onChange={this.handleNomeChange}
+                                    value={this.state.nome}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={6}>
+                            <Grid item xs={12} sm={6} >
+                                <FormControl>
+                                    <InputLabel>Tipo de Identificador do Vinculo</InputLabel>
+                                    <Select
+                                        onChange={this.handleTipoIdentificadorVinculoChange}
+                                        value={this.state.tipoidentificadorVinculo}>
+                                        <MenuItem value={0} key={0}>Identificador local</MenuItem>
+                                        <MenuItem value={1} key={1}>Certidão</MenuItem>
+                                        <MenuItem value={2} key={2}>Carteira de Trabalho e Previdência Social (CTPS)</MenuItem>
+                                        <MenuItem value={3} key={3}>Título de eleitor</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                                 <TextField
                                     label='Identificador do Vinculo'
                                     type="text"
-                                    className="input text"
                                     onChange={this.handleIdentificadorVinculoChange}
                                     value={this.state.identificadorVinculo}
                                     InputLabelProps={{
@@ -78,9 +118,11 @@ class VinculoField extends React.Component {
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={2}>
+                        </Grid>
+                        <Grid container spacing={6}>
+                            <Grid item xs={12} sm={6}>
                                 <FormControl>
-                                    <InputLabel>Relacionamento</InputLabel><br />
+                                    <InputLabel>Relacionamento</InputLabel>
                                     <Select
                                         onChange={this.handleRelacionamentoVinculoChange}
                                         value={this.state.relacionamentoVinculo}>
@@ -150,6 +192,8 @@ class Vinculos extends React.Component {
         super(props);
         this.key = 'vinculos';
         this.skull = {
+            nome: '',
+            tipoidentificadorVinculo: '',
             identificadorVinculo: '',
             relacionamentoVinculo: 254,
             dataInicialVinculo: '',
@@ -174,12 +218,12 @@ class Vinculos extends React.Component {
                 this.setState({ data: value });
             } catch (e) {
                 // handle empty string
-                this.setState({ data: this.props.data });
+                this.setState({ data: [this.skull] });
             }
         }
         else {
-            this.setState({ data: this.props.data });
-            sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
+            this.setState({ data: [this.skull] });
+            sessionStorage.setItem(this.key, JSON.stringify([this.skull]));
         }
     }
     addFields() {

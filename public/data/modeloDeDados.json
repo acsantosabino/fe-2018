@@ -107,7 +107,9 @@
   ]
   ,"vinculos":[
     {
-      "identificadorVinculo":"29183HUGO"
+      "nome": ""
+      ,"tipoidentificadorVinculo": ""
+      ,"identificadorVinculo":""
       ,"relacionamentoVinculo":254
       ,"dataInicialVinculo":"2018-11-04"
       ,"dataFinalVinculo":"2018-11-04"

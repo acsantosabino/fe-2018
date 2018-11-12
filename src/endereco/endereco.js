@@ -55,12 +55,11 @@ export default class Endereco extends React.Component {
                 this.setState(value);
             } catch (e) {
                 // handle empty string
-                this.setState(this.props.data);
+                console.log(e);
             }
         }
         else {
-            this.setState({ data: this.props.data });
-            sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
+            sessionStorage.setItem(this.key, this.state);
         }
     }
 
@@ -139,21 +138,21 @@ export default class Endereco extends React.Component {
                                 <h5>Dia:</h5>
                                 <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
                                 <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
-                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                                <FormControlLabel value="U" control={<Radio color="primary" />} label="Desconhecido" />
                             </RadioGroup>
 
                             <RadioGroup name="indicadorAcuraciaDataInicial" value={this.state.indicadorAcuraciaDataInicial[1]} onChange={this.handleChangeAccMes} style={{ minWidth: '100%' }}>
                                 <h5>Mes:</h5>
                                 <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
                                 <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
-                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                                <FormControlLabel value="U" control={<Radio color="primary" />} label="Desconhecido" />
                             </RadioGroup>
 
                             <RadioGroup name="indicadorAcuraciaDataInicial" value={this.state.indicadorAcuraciaDataInicial[2]} onChange={this.handleChangeAccAno} style={{ minWidth: '100%' }}>
                                 <h5>Ano:</h5>
                                 <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
                                 <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
-                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                                <FormControlLabel value="U" control={<Radio color="primary" />} label="Desconhecido" />
 
                             </RadioGroup>
 
@@ -178,21 +177,21 @@ export default class Endereco extends React.Component {
                                 <h5>Dia:</h5>
                                 <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
                                 <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
-                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                                <FormControlLabel value="U" control={<Radio color="primary" />} label="Desconhecido" />
                             </RadioGroup>
 
                             <RadioGroup name="indicadorAcuraciaDataFinal" value={this.state.indicadorAcuraciaDataFinal[1]} onChange={this.handleChangeAccMes} style={{ minWidth: '100%' }}>
                                 <h5>Mes:</h5>
                                 <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
                                 <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
-                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                                <FormControlLabel value="U" control={<Radio color="primary" />} label="Desconhecido" />
                             </RadioGroup>
 
                             <RadioGroup name="indicadorAcuraciaDataFinal" value={this.state.indicadorAcuraciaDataFinal[2]} onChange={this.handleChangeAccAno} style={{ minWidth: '100%' }}>
                                 <h5>Ano:</h5>
                                 <FormControlLabel value="A" control={<Radio color="primary" />} label="Acurado" />
                                 <FormControlLabel value="E" control={<Radio color="primary" />} label="Estimado" />
-                                <FormControlLabel value="D" control={<Radio color="primary" />} label="Desconhecido" />
+                                <FormControlLabel value="U" control={<Radio color="primary" />} label="Desconhecido" />
                             </RadioGroup>
                         </Grid>
 

@@ -1,9 +1,8 @@
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+import StepButton from '@material-ui/core/StepButton';
 import Stepper from '@material-ui/core/Stepper';
 import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -65,7 +64,7 @@ const steps = [
   "Vínculo"
 ];
 
-function getStepContent(step, id) {
+function getStepContent(step) {
   switch (step) {
     case 0:
       return <Nomes />;
@@ -74,11 +73,11 @@ function getStepContent(step, id) {
     case 2:
       return <DadosDemograficos />;
     case 3:
-      return <Endereco data={id.enderecos} />;
+      return <Endereco />;
     case 4:
-      return <ComunicacoesEletronica data={id.comunicacoesEletronica} />;
+      return <ComunicacoesEletronica />;
     case 5:
-      return <Vinculos data={id.vinculos} />;
+      return <Vinculos />;
     default:
       throw new Error("Unknown step");
   }
@@ -101,6 +100,12 @@ class Inicio extends React.Component {
     this.url = "../data/modeloDeDados.json";
     this.loadCommentsFromServer();
   }
+
+  handleStep = step => () => {
+    this.setState({
+      activeStep: step,
+    });
+  };
 
   handleNext = () => {
     this.setState(state => ({
@@ -167,7 +172,7 @@ class Inicio extends React.Component {
         <main className={classes.layout}>
           <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
-              Cadastro de paciente
+             Cadastro do Indivíduo
             </Typography>
               <Stepper nonLinear className={classes.stepper} activeStep={activeStep}>
               {steps.map((label, index) => {

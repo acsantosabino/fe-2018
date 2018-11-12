@@ -1,35 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-
 import FormLabel from "@material-ui/core/FormLabel";
-
 import FormGroup from "@material-ui/core/FormGroup";
 
-import FormHelperText from "@material-ui/core/FormHelperText";
-
-import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-
-import Switch from "@material-ui/core/Switch";
-
 import Typography from "@material-ui/core/Typography";
 
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 const styles = theme => ({
   container: {
     display: "flex",
@@ -118,9 +107,6 @@ class DadosDemograficos extends React.Component {
     const { classes } = this.props;
 
     const { sit_1, sit_2, sit_3, sit_4, sit_5, sit_6, sit_seguimento, branca, preta, parda, amarela, indigena, masc, fem, inter, nao_dec } = this.state;
-    const error =
-      [sit_1, sit_2, sit_3, sit_4, sit_5, sit_6, sit_seguimento, branca, preta, parda, amarela, indigena, masc, fem, inter, nao_dec].filter(v => v).length !== 2;
-
     return (
       // <form>
       //   <TextField
