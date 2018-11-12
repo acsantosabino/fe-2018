@@ -7,20 +7,66 @@ class Identificador extends Component {
     constructor(props) {
         super(props);
         this.newOne = {
-            tipoDocumento: '2',
-            areaGeografica: "2",
+            tipoDocumento: '',
+            areaGeografica: '',
             emissor: "GO",
             dataEmissao: "10-10-2018",
             designacao: "132456"
         };
         this.state = {
             data: [
-                this.newOne
+
             ]
         };
+        this.onAtualizaIdentificacao = this.onAtualizaIdentificacao.bind(this)
+        this.onRemoverIdentificacao = this.onRemoverIdentificacao.bind(this)
+        this.onAdicionarIdentificacao = this.onAdicionarIdentificacao.bind(this)
+        this.onMudancaTipoDeDocumento = this.onMudancaTipoDeDocumento.bind(this)
+    }
+
+    onMudancaTipoDeDocumento(indice, tipo){
+        var lista = this.state.data;
+        var obj = lista[indice]
+        
+    }
+
+    onAtualizaIdentificacao(indice, novoObj) {
+        var lista = this.state.data;
+        lista[indice] = novoObj;
+        this.setState({ data: lista })
+        sessionStorage.setItem('identificadores', JSON.stringify(this.state.data));
+    }
+
+    onRemoverIdentificacao(indice) {
+        var lista = this.state.data;
+        lista.splice(indice, 1)
+        this.setState({ data: lista })
+        sessionStorage.setItem('identificadores', JSON.stringify(this.state.data));
+        console.log("ESTADO ATUAL DO SESSION STORAGE:  " + sessionStorage.getItem('identificadores'))
+    }
+
+    onAdicionarIdentificacao(e) {
+        e.preventDefault()
+        var d = new Date()
+        var dataString = d.getFullYear() + 
+                            "-" + (d.getMonth() + 1) + 
+                            "-" + d.getDate();
+        var identificador = {
+            designacao: ""
+            , areaGeografica: 1
+            , emissor: ""
+            , dataEmissao: dataString
+            , tipoDocumento: "0"
+        }
+
+        var lista = this.state.data;
+        lista.push(identificador);
+        this.setState({ data: lista })
+        sessionStorage.setItem('identificadores', JSON.stringify(this.state.data));
     }
 
     componentDidUpdate() {
+
     }
 
     componentDidMount() {
@@ -28,7 +74,7 @@ class Identificador extends Component {
             { data: JSON.parse(sessionStorage.getItem('identificadores')) ? JSON.parse(sessionStorage.getItem('identificadores')) : [{ am: 'am' }] },
             function () {
                 console.log('DATA_IDENTIFICADORES: ' + JSON.stringify(this.state.data, null, 2));
-                console.log('DATA_IDENTIFICADORES: ' + JSON.stringify(JSON.parse(sessionStorage.getItem('identificadores')), null, 2));
+                // console.log('DATA_IDENTIFICADORES: ' + JSON.stringify(JSON.parse(sessionStorage.getItem('identificadores')), null, 2));
             }
         );
     }
@@ -41,9 +87,16 @@ class Identificador extends Component {
                     {
                         this.state.data.map((identificacao, indice) => {
                             return <LinhaIdentificacao identificacao={identificacao}
-                                indice={indice} />
+                                indice={indice}
+                                atualizarIdentificacao={this.onAtualizaIdentificacao}
+                                removerIdentificacao={this.onRemoverIdentificacao}
+                                adicionarIdentificacao={this.onAdicionarIdentificacao} />
                         })
                     }
+
+                    <button onClick={this.onAdicionarIdentificacao}>
+                        ADICIONAR [ + ]
+                    </button>
 
                 </form>
             </div>
@@ -55,20 +108,63 @@ class LinhaIdentificacao extends Component {
 
     constructor(props) {
         super(props);
+        this.onAreaGeograficaChange = this.onAreaGeograficaChange.bind(this)
+        this.onEmissorChange = this.onEmissorChange.bind(this)
+        this.onDataEmissaoChange = this.onDataEmissaoChange.bind(this)
+        this.onDesignacaoChange = this.onDesignacaoChange.bind(this)
+        this.onRemoverClick = this.onRemoverClick.bind(this)
+    }
+
+    onAreaGeograficaChange(e) {
+        var value = e.target.value
+        var obj = this.props.identificacao
+        obj.areaGeografica = value
+        this.props.atualizarIdentificacao(this.props.indice, obj)
+    }
+
+    onEmissorChange(e) {
+        var value = e.target.value
+        var obj = this.props.identificacao
+        obj.emissor = value
+        this.props.atualizarIdentificacao(this.props.indice, obj)
+    }
+
+    onDataEmissaoChange(e) {
+        console.log(e.target.value)
+
+        var value = e.target.value
+        var obj = this.props.identificacao
+        obj.dataEmissao = value
+        this.props.atualizarIdentificacao(this.props.indice, obj)
+    }
+
+    onDesignacaoChange(e) {
+        var value = e.target.value
+        var obj = this.props.identificacao
+        obj.designacao = value
+        this.props.atualizarIdentificacao(this.props.indice, obj)
+    }
+
+    onRemoverClick(e) {
+        e.preventDefault();
+        this.props.removerIdentificacao(this.props.indice)
     }
 
     render() {
+        // var identificacao = this.state.identificacao;
+        // var indice = this.state.indice;
+
         var identificacao = this.props.identificacao;
         var indice = this.props.indice;
         return (
             <div>
                 <hr />
-                <h2>{identificacao.designacao} : {indice}</h2>
+                <h2>{identificacao.designacao}</h2>
                 <div>
                     <TextField
                         id="tipoIdentificador"
                         select
-                        label="Tipo de identificador"
+                        label="Tipo de identificador (NAO MUDA)"
                         value={identificacao.tipoDocumento}
                         helperText="Selecione tipo de identificador"
                         margin="normal"
@@ -87,6 +183,7 @@ class LinhaIdentificacao extends Component {
                         value={identificacao.areaGeografica}
                         helperText="Selecione a área geográfica"
                         margin="normal"
+                        onChange={this.onAreaGeograficaChange}
                     >
                         <option value={0} key={0}>Identificador local</option>
                         <option value={1} key={1}>Identificador de área, região ou distrito</option>
@@ -101,6 +198,7 @@ class LinhaIdentificacao extends Component {
                         label="Emissor"
                         value={identificacao.emissor}
                         margin="normal"
+                        onChange={this.onEmissorChange}
                     />
                 </div>
                 <div>
@@ -109,6 +207,7 @@ class LinhaIdentificacao extends Component {
                         label="Data de emissão"
                         type="date"
                         value={identificacao.dataEmissao}
+                        onChange={this.onDataEmissaoChange}
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -121,11 +220,17 @@ class LinhaIdentificacao extends Component {
                         label="Designação"
                         value={identificacao.designacao}
                         margin="normal"
+                        onChange={this.onDesignacaoChange}
                     />
                 </div>
-                <Certidao data={identificacao} />
-                <CarteiraTrabalho data={identificacao} />
-                <TituloEleitor data={identificacao} />
+                <div>
+                    <button onClick={this.onRemoverClick}>
+                        Remover [ X ]
+                    </button>
+                </div>
+                {/* <Certidao data={identificacao} indice={indice} /> */}
+                {/* <CarteiraTrabalho data={identificacao} indice={indice} /> */}
+                {/* <TituloEleitor data={identificacao} indice={indice} /> */}
             </div>
         )
     }
@@ -136,11 +241,12 @@ class Certidao extends Component {
     render() {
 
         var identificao = this.props.data;
+        var indice = this.props.indice;
         var tipoDocumento = identificao.tipoDocumento;
         if (tipoDocumento === '1')
             return (
                 <div id="divCertidao">
-                    <h3>Certidão</h3>
+                    <h3>Certidão </h3>
                     <div>
                         <label for="tipoCertidao">Tipo de Certidão</label>
                         <select id="tipoCertidao" name="tipoCertidao">

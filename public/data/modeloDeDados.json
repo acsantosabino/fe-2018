@@ -4,37 +4,37 @@
     "designacao":"LOCAL123"
     ,"areaGeografica":"1"
     ,"emissor":"HOSPITAL"
-    ,"dataEmissao":"10/10/1980"
+    ,"dataEmissao":"1990-06-23"
     ,"tipoDocumento":"0"
     },
     {
     "designacao":"CER0123"
-    ,"areaGeografica":"2"
-    ,"emissor":""
-    ,"dataEmissao":""
+    ,"areaGeografica":"1"
+    ,"emissor":"CARTORIO A"
+    ,"dataEmissao":"1990-06-23"
     ,"tipoDocumento":"1"
-    ,"nomeCartorio":""
-    ,"livro":0
-    ,"folha":0
-    ,"termo":0
+    ,"nomeCartorio":"CARTORIO A"
+    ,"livro":10
+    ,"folha":200
+    ,"termo":10
     }
     ,{
     "designacao":"CTR0123"
-    ,"areaGeografica":"0"
-    ,"emissor":""
-    ,"dataEmissao":""
+    ,"areaGeografica":"2"
+    ,"emissor":"SINE"
+    ,"dataEmissao":"1990-06-23"
     ,"tipoDocumento":"2"
-    ,"serie":0
-    ,"estado":""
+    ,"serie":12
+    ,"estado":"GO"
     }
     ,{
     "designacao":"TIT0123"
     ,"areaGeografica":"3"
-    ,"emissor":""
-    ,"dataEmissao":""
+    ,"emissor":"TRE-GO"
+    ,"dataEmissao":"1990-06-23"
     ,"tipoDocumento":"3"
-    ,"secao":0
-    ,"zona":0
+    ,"secao":23
+    ,"zona":543
     }
   ]
   ,"nomes":[
