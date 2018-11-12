@@ -59,33 +59,44 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     minWidth: 280,
   },
+  formControl_linha: {
+    margin: theme.spacing.unit,
+    minWidth: 800,
+  },
+  
 });
 
 class DadosDemograficos extends React.Component {
-  state = {
-    // nome dos pais
-    name: "Cat in the Hat",
-    age: "",
-    multiline: "Controlled",
-    currency: "EUR",
+  constructor(props) {
+    super(props);
+      this.state = {
+        // nome dos pais
+        name: "Cat in the Hat",
+        age: "",
+        multiline: "Controlled",
+        currency: "EUR",
+        amount: "",
+        checkedA: true,
+        checkedB: true,
+        value: "female",
+        open: false,
+        open_nasc: false,
+        open_ordem: false,
+        selecione: '',
+        selecione_nasc:'',
+        selecione_ordem:'',
 
-    // situacao familiar
-    gilad: false,
-    jason: false,
-    antoine: false,
+        editando: false,
+        id: 0,
+        nomeMae:"",
+        nomePai:"",
+        nomes: [],
 
-    amount: "",
-
-    checkedA: true,
-    checkedB: true,
-
-    value: "female",
-
-    open: false,
-    open_nasc: false,
-    selecione: '',
-    selecione_nasc:'',
+        multiline: 'Controlled',
   };
+  this.addDemografico = this.addDemografico.bind(this);
+
+  }
 
   handleRadio = event => {
     this.setState({ value: event.target.value });
@@ -98,21 +109,33 @@ class DadosDemograficos extends React.Component {
  
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  handleCloseSit = () => {this.setState({ open: false }); };
+  handleCloseNasc = () => {this.setState({ open_nasc: false }); };
+  handleCloseOrdem = () => {this.setState({ open_ordem: false }); };
 
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
+  handleOpenSit = () => {this.setState({ open: true }); };
+  handleOpenNasc = () => {this.setState({ open_nasc: true }); };
+  handleOpenOrdem = () => {this.setState({ open_ordem: true }); };
 
-  handleClose_ = () => {
-    this.setState({ open_nasc: false });
-  };
+  addDemografico() {
 
-  handleOpen_ = () => {
-    this.setState({ open_nasc: true });
-  };
+    if(this.state.nomeMae === null || this.state.nomeMae === '') {
+      return alert("O campo 'Mae' está vazio");
+    }
+    if(this.state.nomePai === null || this.state.nomePai === '') {
+      return alert("O campo 'Pai' está vazio");
+    }
+
+    let id = new Date().getTime();
+    this.state.nomes.push({
+      id: id,
+      nomeMae: this.state.nomeMae,
+      nomePai: this.state.nomePai,
+      
+    });
+    sessionStorage.setItem("dadosDemograficos", JSON.stringify(this.state.nomes));
+    this.clear();
+  }
 
   render() {
     const { classes } = this.props;
@@ -122,42 +145,15 @@ class DadosDemograficos extends React.Component {
       [sit_1, sit_2, sit_3, sit_4, sit_5, sit_6, sit_seguimento, branca, preta, parda, amarela, indigena, masc, fem, inter, nao_dec].filter(v => v).length !== 2;
 
     return (
-      // <form>
-      //   <TextField
-      //     id="outlined-full-width"
-      //     label="Mãe"
-      //     style={{ margin: 8 }}
-      //     placeholder="Nome completo da mãe!"
-      //     // helperText="Full width!"
-      //     fullWidth
-      //     margin="normal"
-      //     variant="outlined"
-      //     InputLabelProps={{
-      //       shrink: true
-      //     }}
-      //   />
-      //   <TextField
-      //     id="outlined-full-width"
-      //     label="Pai"
-      //     style={{ margin: 8 }}
-      //     placeholder="Nome completo do pai!"
-      //     // helperText="Full width!"
-      //     fullWidth
-      //     margin="normal"
-      //     variant="outlined"
-      //     InputLabelProps={{
-      //       shrink: true
-      //     }}
-      //   />
-      // </form>
-
       <div>
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <TextField
-                id="outlined-full-width"
-                label="Mãe"
+                id="nomeMae"
+                name="nomeMae"
+                label="nomeMae"
+                onChange={this.handleChange("mae")}
                 style={{ margin: 8 }}
                 placeholder="Nome completo da mãe!"
                 // helperText="Full width!"
@@ -169,8 +165,10 @@ class DadosDemograficos extends React.Component {
                 }}
               />
               <TextField
-                id="outlined-full-width"
-                label="Pai"
+                id="nomePai"
+                name="nomePai"
+                onChange={this.handleChange("nomePai")}
+                label="nomePai"
                 style={{ margin: 8 }}
                 placeholder="Nome completo do pai!"
                 // helperText="Full width!"
@@ -185,16 +183,6 @@ class DadosDemograficos extends React.Component {
           </Grid>
           <Grid item xs={12}>
             <Paper className={classes.alinhaEsquerda}>
-              {/* <FormControl fullWidth className={classes.margin}>
-          <InputLabel htmlFor="adornment-amount">Amount</InputLabel>
-          <Input
-            id="adornment-amount"
-            value={this.state.amount}
-            onChange={this.handleChange('amount')}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-          />
-        </FormControl> */}
-
               <FormControl component="fieldset" className={classes.formControl}>
                 <FormLabel style={{ paddingBottom: 1 }}>
                   <Typography variant="h6" gutterBottom>
@@ -421,7 +409,6 @@ class DadosDemograficos extends React.Component {
                   />
                  
                 </FormGroup>
-                {/* <FormHelperText>Be careful</FormHelperText> */}
               </FormControl>
             </Paper>
           </Grid>
@@ -678,8 +665,8 @@ class DadosDemograficos extends React.Component {
           <InputLabel htmlFor="demo-controlled-open-select">Selecione</InputLabel>
           <Select
             open={this.state.open}
-            onClose={this.handleClose}
-            onOpen={this.handleOpen}
+            onClose={this.handleCloseSit}
+            onOpen={this.handleOpenSit}
             value={this.state.selecione}
             onChange={this.handleChange}
             inputProps={{
@@ -773,8 +760,8 @@ class DadosDemograficos extends React.Component {
           <InputLabel   htmlFor="demo-controlled-open-select">Selecione</InputLabel>
           <Select
             open={this.state.open_nasc}
-            onClose={this.handleClose_}
-            onOpen={this.handleOpen_}
+            onClose={this.handleCloseNasc}
+            onOpen={this.handleOpenNasc}
             value={this.state.selecione_nasc}
             onChange={this.handleChange}
             inputProps={{
@@ -794,6 +781,92 @@ class DadosDemograficos extends React.Component {
         </FormControl>
       </form>
             </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.alinhaEsquerda}>
+              <FormLabel>
+                  <Typography variant="h6" gutterBottom>
+                  Nacionalidade
+                  </Typography>
+                </FormLabel>
+              
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.alinhaEsquerda}>
+              <FormLabel>
+                  <Typography variant="h6" gutterBottom>
+                  Ordem de nascimento
+                  </Typography>
+                </FormLabel>
+                <form autoComplete="off">
+        <FormControl className={classes.formControl_linha}>
+          <InputLabel   htmlFor="demo-controlled-open-select">Selecione</InputLabel>
+          <Select
+            open={this.state.open_ordem}
+            onClose={this.handleCloseOrdem}
+            onOpen={this.handleOpenOrdem}
+            value={this.state.selecione_ordem}
+            onChange={this.handleChange}
+            inputProps={{
+              name: 'selecione_ordem',
+              id: 'demo-controlled-open-select',
+            }}
+          >
+            
+            <MenuItem value={10}>Único ou primeiro</MenuItem>
+            <MenuItem value={20}>Segundo</MenuItem>
+            <MenuItem value={30}>Terceiro</MenuItem>
+            <MenuItem value={40}>Quarto</MenuItem>
+            <MenuItem value={50}>Sexto</MenuItem>
+            <MenuItem value={60}>Outros</MenuItem> 
+            <MenuItem value={70}>Não declarado</MenuItem>  
+          </Select>
+        </FormControl>
+      </form>
+            </Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.alinhaEsquerda}>
+            <FormLabel>
+                  <Typography variant="h6" gutterBottom>
+                  Comentários de identificação
+                  </Typography>
+                </FormLabel>
+            <TextField
+          id="outlined-multiline-fexible"
+          label="Comentários"
+          placeholder="Exemplo: dois pacientes com o mesmo nome!"
+          fullWidth
+          multiline
+          rows="4"
+          className={classes.textField}
+          margin="normal"
+          variant="outlined"
+        />
+            
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12} sm={12} container justify="flex-end">
+            {!this.state.editando && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.addDemografico}
+              >
+                Adicionar dados
+              </Button>
+            )}
+            {this.state.editando && (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.updateNome}
+              >
+                Salvar edição
+              </Button>
+            )}
           </Grid>
         </Grid>
         
