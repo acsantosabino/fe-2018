@@ -35,7 +35,6 @@ class Identificador extends Component {
         this.setState({ data: lista })
         sessionStorage.setItem('identificadores', JSON.stringify(this.state.data));
 
-        console.log("DADOS: .... " + JSON.stringify(this.state.data))
     }
 
     onRemoverIdentificacao(indice) {
@@ -43,7 +42,6 @@ class Identificador extends Component {
         lista.splice(indice, 1)
         this.setState({ data: lista })
         sessionStorage.setItem('identificadores', JSON.stringify(this.state.data));
-        console.log("ESTADO ATUAL DO SESSION STORAGE:  " + sessionStorage.getItem('identificadores'))
     }
 
     onAdicionarIdentificacao(e) {
@@ -85,8 +83,7 @@ class Identificador extends Component {
         this.setState(
             { data: JSON.parse(sessionStorage.getItem('identificadores')) ? JSON.parse(sessionStorage.getItem('identificadores')) : [{ am: 'am' }] },
             function () {
-                console.log('DATA_IDENTIFICADORES: ' + JSON.stringify(this.state.data, null, 2));
-                // console.log('DATA_IDENTIFICADORES: ' + JSON.stringify(JSON.parse(sessionStorage.getItem('identificadores')), null, 2));
+              
             }
         );
     }
@@ -314,7 +311,6 @@ class Certidao extends Component {
     }
 
     render() {
-        console.log(JSON.stringify(this.props))
 
         var identificao = this.props.data;
         var indice = this.props.indice;
