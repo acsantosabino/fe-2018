@@ -48,16 +48,27 @@ class Identificador extends Component {
 
     onAdicionarIdentificacao(e) {
         e.preventDefault()
+
         var d = new Date()
         var dataString = d.getFullYear() +
-            "-" + (d.getMonth() + 1) +
-            "-" + d.getDate();
+        "-" + (d.getMonth() + 1) +
+        "-" + d.getDate();
+
         var identificador = {
             designacao: ""
             , areaGeografica: 1
             , emissor: ""
             , dataEmissao: dataString
             , tipoDocumento: "0"
+            , nomeCartorio: ""
+            , tipoCertidao: 0
+            , livro: 0
+            , folha: 0
+            , termo: 0
+            , serie: 0
+            , estado: ""
+            , secao: 0
+            , zona: 0
         }
 
         var lista = this.state.data;
@@ -83,7 +94,7 @@ class Identificador extends Component {
     render() {
         return (
             <div>
-                <h2>Identificadores</h2>
+                <h2 >Identificadores</h2>
                 <form>
                     {
                         this.state.data.map((identificacao, indice) => {
@@ -95,12 +106,11 @@ class Identificador extends Component {
                         })
                     }
 
-                    <p/>
-                    <hr/>
+                    <p />
+                    <hr />
                     <button onClick={this.onAdicionarIdentificacao}>
-                        ADICIONAR [ + ]
-                    </button>
-
+                        NOVO IDENTIFICADOR [ + ]
+                    </button> &nbsp;
                 </form>
             </div>
         );
@@ -118,13 +128,14 @@ class LinhaIdentificacao extends Component {
         this.onRemoverClick = this.onRemoverClick.bind(this)
         this.onAtualizarDadosTipoEspecificoDocumento =
             this.onAtualizarDadosTipoEspecificoDocumento.bind(this)
+        this.onTipoDocumentoChange = this.onTipoDocumentoChange.bind(this)
     }
 
     onAtualizarDadosTipoEspecificoDocumento(novoObjeto) {
         this.props.atualizarIdentificacao(this.props.indice, novoObjeto)
     }
-
-    onTipoDocumentoChange(e) {
+ 
+    onTipoDocumentoChange(e){
         var value = e.target.value
         var obj = this.props.identificacao
         obj.tipoDocumento = value
@@ -172,25 +183,50 @@ class LinhaIdentificacao extends Component {
 
         var identificacao = this.props.identificacao;
         var indice = this.props.indice;
+
+
+
+        switch (identificacao.tipoDocumento) {
+            case '0':
+                var tipoDocumento = "Identificador local"
+                break;
+            case '1':
+                var tipoDocumento = "Certidão"
+                break;
+            case '2':
+                var tipoDocumento = "Carteira de Trabalho e Previdência Social (CTPS)"
+                break;
+            case '3':
+                var tipoDocumento = "Título d eleitor"
+                break;
+            default:
+                var tipoDocumento = "Não identificado"
+        }
         return (
             <div>
                 <hr />
                 <h2>{identificacao.designacao}</h2>
                 <div>
+                    Tipo de documento:  {tipoDocumento}
+                </div>
+
+                <div>
                     <TextField
-                        id="tipoIdentificador"
+                        id="tipoDocumento"
                         select
-                        label="Tipo de identificador (NAO MUDA)"
+                        label="Tipo de documento"
                         value={identificacao.tipoDocumento}
-                        helperText="Selecione tipo de identificador"
+                        helperText="Selecione o tipo de documento"
                         margin="normal"
+                        onChange={this.onTipoDocumentoChange}
                     >
-                        <option value={0} key={0}>Identificador local</option>
-                        <option value={1} key={1}>Certidão</option>
-                        <option value={2} key={2}>Carteira de Trabalho e Previdência Social (CTPS)</option>
-                        <option value={3} key={3}>Título de eleitor</option>
+                        <option value="0" >Identificador local</option>
+                        <option value="1" >Certidão</option>
+                        <option value="2" >Carteira de trabalho</option>
+                        <option value="3" >Titulo de eleitor</option>
                     </TextField>
                 </div>
+
                 <div>
                     <TextField
                         id="areaGeografica"
@@ -419,7 +455,7 @@ class CarteiraTrabalho extends Component {
 
 class TituloEleitor extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.onSecaoChange = this.onSecaoChange.bind(this)
         this.onZonaChange = this.onZonaChange.bind(this)
@@ -430,7 +466,7 @@ class TituloEleitor extends Component {
         this.props.atualizar(this.props.data)
     }
 
-    onZonaChange(e){
+    onZonaChange(e) {
         this.props.data.zona = e.target.value;
         this.props.atualizar(this.props.data)
     }
@@ -444,15 +480,15 @@ class TituloEleitor extends Component {
                     <h3>Título de eleitor</h3>
                     <div>
                         <label for="secao">Seção</label>
-                        <input type="number" id="secao" name="secao" min="0" 
+                        <input type="number" id="secao" name="secao" min="0"
                             value={this.props.data.secao}
-                            onChange={this.onSecaoChange}/>
+                            onChange={this.onSecaoChange} />
                     </div>
                     <div>
                         <label for="zona">Zona</label>
-                        <input type="number" id="zona" name="zona" min="0" 
+                        <input type="number" id="zona" name="zona" min="0"
                             value={this.props.data.zona}
-                            onChange={this.onZonaChange}/>
+                            onChange={this.onZonaChange} />
                     </div>
                 </div>
             )
