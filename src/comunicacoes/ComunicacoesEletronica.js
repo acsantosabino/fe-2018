@@ -148,24 +148,23 @@ class ComunicacoesEletronica extends React.Component {
         this.onRemove = this.onRemove.bind(this);
         this.updateList = this.updateList.bind(this);
     }
+
     componentDidMount() {
+        console.log(this.props.data);
         if (sessionStorage.hasOwnProperty(this.key)) {
-            // get the key's value from sessionStorage
-            let value = sessionStorage.getItem(this.key);
-            // parse the sessionStorage string and setState
-            try {
-                value = JSON.parse(value);
-                this.setState({ data: value });
-            } catch (e) {
-                // handle empty string
-                this.setState({ data: [this.skull] });
-            }
+          this.setState({
+            data: JSON.parse(sessionStorage.getItem(this.key))
+              ? JSON.parse(sessionStorage.getItem(this.key))
+              : this.props.data
+          }, () => {
+            sessionStorage.setItem(this.key, JSON.stringify(this.state.data));
+          });
         }
         else {
-            this.setState({ data: [this.skull] });
-            sessionStorage.setItem(this.key, JSON.stringify([this.skull]));
+          sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
         }
-    }
+      }
+
     addFields() {
         this.setState({ data: this.state.data.concat([this.skull]) });
         sessionStorage.setItem(this.key, JSON.stringify(this.state.data));

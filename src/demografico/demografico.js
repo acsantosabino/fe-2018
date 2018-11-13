@@ -85,9 +85,26 @@ class DadosDemograficos extends React.Component {
 
         multiline: 'Controlled',
   };
+  this.key="dadosDemograficos";
   this.addDemografico = this.addDemografico.bind(this);
   this.handleChange = this.handleChange.bind(this);
 
+  }
+
+  componentDidMount() {
+    console.log(this.props.data);
+    if (sessionStorage.hasOwnProperty(this.key)) {
+      this.setState({
+        nomes: JSON.parse(sessionStorage.getItem(this.key))
+          ? JSON.parse(sessionStorage.getItem(this.key))
+          : this.props.data
+      }, () => {
+        sessionStorage.setItem(this.key, JSON.stringify(this.state.nomes));
+      });
+    }
+    else {
+      sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
+    }
   }
 
   handleRadio = event => {
@@ -125,7 +142,7 @@ class DadosDemograficos extends React.Component {
       nomePai: this.state.nomePai,
       
     });
-    sessionStorage.setItem("dadosDemograficos", JSON.stringify(this.state.nomes));
+    sessionStorage.setItem(this.key, JSON.stringify(this.state.nomes));
    }
 
   render() {

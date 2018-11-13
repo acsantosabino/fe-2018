@@ -64,20 +64,20 @@ const steps = [
   "Vínculo"
 ];
 
-function getStepContent(step) {
+function getStepContent(step, id) {
   switch (step) {
     case 0:
-      return <Nomes />;
+      return <Nomes data={id.nomes}/>;
     case 1:
-      return <Identificador />;
+      return <Identificador data={id.identificadores}/>;
     case 2:
-      return <DadosDemograficos />;
+      return <DadosDemograficos data={id.dadosDemograficos}/>;
     case 3:
-      return <Endereco />;
+      return <Endereco data={id.enderecos}/>;
     case 4:
-      return <ComunicacoesEletronica />;
+      return <ComunicacoesEletronica data={id.comunicacoesEletronica}/>;
     case 5:
-      return <Vinculos />;
+      return <Vinculos data={id.vinculos}/>;
     default:
       throw new Error("Unknown step");
   }
@@ -88,8 +88,8 @@ class Inicio extends React.Component {
     super(props, context);
     this.state = {
       id: {
-        identificadores: [],
         nomes: [],
+        identificadores:[],
         dadosDemograficos: [],
         enderecos: '',
         comunicacoesEletronica: [],
@@ -104,24 +104,32 @@ class Inicio extends React.Component {
   handleStep = step => () => {
     this.setState({
       activeStep: step,
+    }, () => {
+      sessionStorage.setItem("activeStep", JSON.stringify(this.state.activeStep));
     });
   };
 
   handleNext = () => {
     this.setState(state => ({
       activeStep: state.activeStep + 1
-    }));
+    }), () => {
+      sessionStorage.setItem("activeStep", JSON.stringify(this.state.activeStep));
+    });
   };
 
   handleBack = () => {
     this.setState(state => ({
       activeStep: state.activeStep - 1
-    }));
+    }), () => {
+      sessionStorage.setItem("activeStep", JSON.stringify(this.state.activeStep));
+    });
   };
 
   handleReset = () => {
     this.setState({
       activeStep: 0
+    }, () => {
+      sessionStorage.setItem("activeStep", JSON.stringify(this.state.activeStep));
     });
   };
 
@@ -148,12 +156,24 @@ class Inicio extends React.Component {
         }
       }
     }).catch(e => {
-
       console.error(e);
     });
   }
+  componentWillReceiveProps(){
+    this.componentDidMount();
+  }
   componentDidMount() {
+    console.log(this.state);
     this.loadCommentsFromServer();
+    if (sessionStorage.hasOwnProperty("activeStep")) {
+      this.setState({
+        activeStep: JSON.parse(sessionStorage.getItem("activeStep"))
+          ? JSON.parse(sessionStorage.getItem("activeStep"))
+          : 0
+      }, () => {
+        sessionStorage.setItem("activeStep", JSON.stringify(this.state.activeStep));
+      });
+    }
   }
   render() {
     const { classes } = this.props;
@@ -187,7 +207,7 @@ class Inicio extends React.Component {
               })}
             </Stepper>
                 <React.Fragment>
-                  {getStepContent(activeStep)}
+                  {getStepContent(activeStep, this.state.id)}
                 </React.Fragment>
           </Paper>
         </main>

@@ -22,6 +22,8 @@ class VinculoField extends React.Component {
             dataInicialVinculo: '',
             dataFinalVinculo: ''
         };
+        this.handleNomeChange = this.handleNomeChange.bind(this);
+        this.handleTipoIdentificadorVinculoChange = this.handleTipoIdentificadorVinculoChange.bind(this);
         this.handleIdentificadorVinculoChange = this.handleIdentificadorVinculoChange.bind(this);
         this.handleRelacionamentoVinculoChange = this.handleRelacionamentoVinculoChange.bind(this);
         this.handleDataInicialVinculoChange = this.handleDataInicialVinculoChange.bind(this);
@@ -72,17 +74,30 @@ class VinculoField extends React.Component {
     }
     render() {
         return (
-            <FormGroup id={this.props.vincId + this.props.count}>
+            <FormGroup id={this.props.vincId + this.props.count}
+            style={{
+                marginTop : "10px",
+                marginBottom : "10px"
+            }}>
                 <Grid container
                     spacing={6}
                     direction="row"
                     justify="center"
                     alignItems="center"
+                    style={{
+                        marginTop : "10px",
+                        marginBottom : "10px"
+                    }}
                 >
                     <Grid item xs={12} sm={11}>
-                        <Grid container spacing={6}>
+                        <Grid container spacing={25}>
                             <Grid item xs={12} sm={12}>
                                 <TextField
+                                    style={{
+                                        width: "100%",
+                                        marginTop : "10px",
+                                        marginBottom : "10px"
+                                    }}
                                     label='Nome do Vinculado'
                                     type="text"
                                     onChange={this.handleNomeChange}
@@ -93,9 +108,14 @@ class VinculoField extends React.Component {
                                 />
                             </Grid>
                         </Grid>
-                        <Grid container spacing={6}>
+                        <Grid container spacing={25}>
                             <Grid item xs={12} sm={6} >
-                                <FormControl>
+                                <FormControl
+                                    style={{
+                                        width:"90%",
+                                        marginTop : "10px",
+                                        marginBottom : "10px"
+                                    }}>
                                     <InputLabel>Tipo de Identificador do Vinculo</InputLabel>
                                     <Select
                                         onChange={this.handleTipoIdentificadorVinculoChange}
@@ -116,10 +136,15 @@ class VinculoField extends React.Component {
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
+                                    style={{
+                                        width: "100%",
+                                        marginTop : "10px",
+                                        marginBottom : "10px"
+                                    }}
                                 />
                             </Grid>
                         </Grid>
-                        <Grid container spacing={6}>
+                        <Grid container spacing={25}>
                             <Grid item xs={12} sm={6}>
                                 <FormControl>
                                     <InputLabel>Relacionamento</InputLabel>
@@ -208,24 +233,21 @@ class Vinculos extends React.Component {
         this.updateList = this.updateList.bind(this);
     }
     componentDidMount() {
-        console.log(JSON.parse(sessionStorage.getItem(this.key)));
+        console.log(this.props.data);
         if (sessionStorage.hasOwnProperty(this.key)) {
-            // get the key's value from sessionStorage
-            let value = sessionStorage.getItem(this.key);
-            // parse the sessionStorage string and setState
-            try {
-                value = JSON.parse(value);
-                this.setState({ data: value });
-            } catch (e) {
-                // handle empty string
-                this.setState({ data: [this.skull] });
-            }
+          this.setState({
+            data: JSON.parse(sessionStorage.getItem(this.key))
+              ? JSON.parse(sessionStorage.getItem(this.key))
+              : this.props.data
+          }, () => {
+            sessionStorage.setItem(this.key, JSON.stringify(this.state.data));
+          });
         }
         else {
-            this.setState({ data: [this.skull] });
-            sessionStorage.setItem(this.key, JSON.stringify([this.skull]));
+          sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
         }
-    }
+      }
+
     addFields() {
         this.setState({ data: this.state.data.concat([this.skull]) });
         sessionStorage.setItem(this.key, JSON.stringify(this.state.data));

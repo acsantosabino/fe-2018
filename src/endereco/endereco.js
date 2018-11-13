@@ -45,23 +45,20 @@ export default class Endereco extends React.Component {
 
     }
     componentDidMount() {
-        console.log(JSON.parse(sessionStorage.getItem(this.key)));
+        console.log(this.props.data);
         if (sessionStorage.hasOwnProperty(this.key)) {
-            // get the key's value from sessionStorage
-            let value = sessionStorage.getItem(this.key);
-            // parse the sessionStorage string and setState
-            try {
-                value = JSON.parse(value);
-                this.setState(value);
-            } catch (e) {
-                // handle empty string
-                console.log(e);
-            }
+          this.setState(
+              JSON.parse(sessionStorage.getItem(this.key))
+              ? JSON.parse(sessionStorage.getItem(this.key))
+              : this.props.data
+          , () => {
+            sessionStorage.setItem(this.key, JSON.stringify(this.state));
+          });
         }
         else {
-            sessionStorage.setItem(this.key, this.state);
+          sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
         }
-    }
+      }
 
     updateSessionStorage() {
         sessionStorage.setItem(this.key, JSON.stringify(this.state))

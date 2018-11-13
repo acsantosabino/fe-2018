@@ -20,10 +20,9 @@ class Identificador extends Component {
             designacao: "132456"
         };
         this.state = {
-            data: [
-
-            ]
+            data: []
         };
+        this.key = "identificadores";
         this.onAtualizaIdentificacao = this.onAtualizaIdentificacao.bind(this)
         this.onRemoverIdentificacao = this.onRemoverIdentificacao.bind(this)
         this.onAdicionarIdentificacao = this.onAdicionarIdentificacao.bind(this)
@@ -33,7 +32,7 @@ class Identificador extends Component {
         var lista = this.state.data;
         lista[indice] = novoObj;
         this.setState({ data: lista })
-        sessionStorage.setItem('identificadores', JSON.stringify(this.state.data));
+        sessionStorage.setItem(this.key, JSON.stringify(this.state.data));
 
     }
 
@@ -41,7 +40,7 @@ class Identificador extends Component {
         var lista = this.state.data;
         lista.splice(indice, 1)
         this.setState({ data: lista })
-        sessionStorage.setItem('identificadores', JSON.stringify(this.state.data));
+        sessionStorage.setItem(this.key, JSON.stringify(this.state.data));
     }
 
     onAdicionarIdentificacao(e) {
@@ -72,21 +71,24 @@ class Identificador extends Component {
         var lista = this.state.data;
         lista.push(identificador);
         this.setState({ data: lista })
-        sessionStorage.setItem('identificadores', JSON.stringify(this.state.data));
-    }
-
-    componentDidUpdate() {
-
+        sessionStorage.setItem(this.key, JSON.stringify(this.state.data));
     }
 
     componentDidMount() {
-        this.setState(
-            { data: JSON.parse(sessionStorage.getItem('identificadores')) ? JSON.parse(sessionStorage.getItem('identificadores')) : [{ am: 'am' }] },
-            function () {
-              
-            }
-        );
-    }
+        console.log(this.props.data);
+        if (sessionStorage.hasOwnProperty(this.key)) {
+          this.setState({
+            data: JSON.parse(sessionStorage.getItem(this.key))
+              ? JSON.parse(sessionStorage.getItem(this.key))
+              : this.props.data
+          }, () => {
+            sessionStorage.setItem(this.key, JSON.stringify(this.state.data));
+          });
+        }
+        else {
+          sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
+        }
+      }
 
     render() {
         return (

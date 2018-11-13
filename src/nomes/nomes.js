@@ -32,6 +32,7 @@ export default class Nomes extends React.Component {
       editando: false,
       nomes: []
     };
+    this.key = "nomes";
 
     this.handleChange = this.handleChange.bind(this);
     this.addNome = this.addNome.bind(this);
@@ -46,11 +47,11 @@ export default class Nomes extends React.Component {
 
   addNome() {
 
-    if(this.state.sobrenome === null || this.state.sobrenome === '') {
+    if (this.state.sobrenome === null || this.state.sobrenome === '') {
       return alert("O campo 'sobrenome' está vazio");
     }
 
-    if(this.state.nomes.length === 9) {
+    if (this.state.nomes.length === 9) {
       return alert("Quantidade máxima de nomes excedida");
     }
 
@@ -65,14 +66,14 @@ export default class Nomes extends React.Component {
       nomePreferido: this.state.nomePreferido,
       condicional: this.state.condicional
     });
-    sessionStorage.setItem("nomes", JSON.stringify(this.state.nomes));
+    sessionStorage.setItem(this.key, JSON.stringify(this.state.nomes));
     this.clear();
   }
 
   deleteNome(id) {
-    this.state.nomes.splice(this.state.nomes.findIndex(nome => nome.id === id),1);
+    this.state.nomes.splice(this.state.nomes.findIndex(nome => nome.id === id), 1);
     this.setState({ nomes: this.state.nomes });
-    sessionStorage.setItem("nomes", JSON.stringify(this.state.nomes));
+    sessionStorage.setItem(this.key, JSON.stringify(this.state.nomes));
   }
 
   clear() {
@@ -96,11 +97,11 @@ export default class Nomes extends React.Component {
       condicional: nome.condicional,
       editando: true
     });
-    sessionStorage.setItem("nomes", JSON.stringify(this.state.nomes));
+    sessionStorage.setItem(this.key, JSON.stringify(this.state.nomes));
   }
 
   updateNome() {
-    if(this.state.sobrenome === null || this.state.sobrenome === '') {
+    if (this.state.sobrenome === null || this.state.sobrenome === '') {
       return alert("O campo 'sobrenome' está vazio");
     }
     let nomesList = this.state.nomes;
@@ -117,15 +118,26 @@ export default class Nomes extends React.Component {
 
     this.clear();
     this.setState({ nomes: nomesList, editando: false });
-    sessionStorage.setItem("nomes", JSON.stringify(this.state.nomes));
+    sessionStorage.setItem(this.key, JSON.stringify(this.state.nomes));
+  }
+
+  componentWillReceiveProps(){
+    this.componentDidMount();
   }
 
   componentDidMount() {
-    this.setState({
-      nomes: JSON.parse(sessionStorage.getItem("nomes"))
-        ? JSON.parse(sessionStorage.getItem("nomes"))
-        : []
-    });
+    if (sessionStorage.hasOwnProperty(this.key)) {
+      this.setState({
+        nomes: JSON.parse(sessionStorage.getItem(this.key))
+          ? JSON.parse(sessionStorage.getItem(this.key))
+          : this.props.data
+      }, () => {
+        sessionStorage.setItem(this.key, JSON.stringify(this.state.nomes));
+      });
+    }
+    else {
+      sessionStorage.setItem(this.key, JSON.stringify(this.props.data));
+    }
   }
 
   render() {
@@ -159,7 +171,7 @@ export default class Nomes extends React.Component {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-               id="titulo"
+              id="titulo"
               name="titulo"
               label="Título"
               value={this.state.titulo}
