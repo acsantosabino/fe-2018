@@ -21,6 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild": "react-scripts build",
     "build": "react-scripts build && npm run deploy",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

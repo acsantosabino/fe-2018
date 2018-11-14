@@ -97,7 +97,7 @@ class Inicio extends React.Component {
       },
       activeStep: 0,
     };
-    this.url = "../data/modeloDeDados.json";
+    this.url = "./data/modeloDeDados.json";
     this.loadCommentsFromServer();
   }
 
