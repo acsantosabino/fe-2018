@@ -54,14 +54,14 @@ Há pouca informação a ser cadastrada e sem grande complexidade
 
 **Referências**
 * [Api lista cidades](https://pt.stackoverflow.com/questions/76640/existe-alguma-api-que-liste-estados-e-cidades)
-* [React-Bootstrap](https://react-bootstrap.github.io/getting-started/introduction)
+* [Material para React](https://material-ui.com/)
 
 **Instalação**
 ``` bash
 1. npm install // Instala dependencias
 ##Executar passo 2 OU 3
-2. npm run start // Realiza o build no modo debug (não realiza minificação do arquivo javascript) e inicia o projeto
-3. npm run build // Realiza o build no modo produção (realiza minificação do arquivo javascript)
+2. npm run start // Realiza o build no modo debug (não realiza minificação do arquivo javascript) e inicia o projeto em sevidor local
+3. npm run build // Realiza o build no modo produção (realiza minificação do arquivo javascript) e faz o deploy no gh-pages
 
 ```
 
